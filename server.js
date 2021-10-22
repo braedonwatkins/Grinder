@@ -9,10 +9,6 @@ const client = new MongoClient(url);
 client.connect();
 
 
-const client = new MongoClient(url);
-client.connect();
-
-
 const path = require('path');           
 const PORT = process.env.PORT || 5000;  
 const app = express();
