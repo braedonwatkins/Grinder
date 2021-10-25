@@ -5,7 +5,6 @@ function CardUI()
     var card = '';
     var search = '';
 
-    //git test
     // eslint-disable-next-line
     const [message,setMessage] = useState('');
     // eslint-disable-next-line
