@@ -80,7 +80,7 @@ function CardUI()
             const response = await fetch(buildPath('api/searchcards'),
             {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
-            var txt = await response;
+            var txt = await response.text();
             var res = JSON.parse(txt);
             var _results = res.results;
             var resultText = '';
