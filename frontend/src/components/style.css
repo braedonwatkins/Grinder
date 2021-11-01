@@ -1,0 +1,101 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+html,
+body {
+  height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(to right, #6e0dbe, #3587e4);
+	background-size: 200%, 200%;
+	animation: gradient 7s ease infinite;
+	height: calc(100vh);
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.box {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+    background-color: #242121;
+    border-radius: 30px;
+    text-align: center;
+    transition: .75s;
+}
+
+
+.box .form-box:focus-within {
+    z-index: 2;
+}
+
+.box input[type="email"], 
+.box input[type="password"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 10px 10px;
+    width: 250px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: .25s
+}
+.box input[type="email"]:focus,
+.box input[type="password"]:focus {
+    width: 300px;
+    border-color: #2ecc71
+}
+.box input[type="button"] {
+    border: 100px;
+    background: none;
+    display: block;
+    margin: 15px auto;
+    text-align: center;
+    border: 1px solid #2ecc71;
+    padding: 10px 50px;
+    outline: none;
+    color: white;
+    border-radius: 25px;
+    transition: .25s;
+    cursor: pointer;
+    width: 200px;
+}
+.box input[type="button"]:hover {
+    background: #2ecc71
+}
+.box h3 {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 0;
+}
+.forgot {
+    text-decoration: underline;
+}
+
+  
+ main {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    height: -webkit-fill-available;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+

@@ -1,17 +1,17 @@
 import React from 'react';
 
 import NavBar from '../components/navBar';
-import Login from '../components/Login';
+import Email from '../components/eMailBox';
 
-const LoginPage = () =>
+const eMail = () =>
 {
     return(
       <div>
         <NavBar />
         <br /><br />
-        <Login />
+        <Email />
       </div>
     );
 };
 
-export default LoginPage;
+export default eMail;

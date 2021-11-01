@@ -1,16 +1,17 @@
 import React from 'react';
-
-import PageTitle from '../components/PageTitle';
-import LoggedInName from '../components/LoggedInName';
-import CardUI from '../components/CardUI';
+import NavHome from '../components/NavHome';
+import Card from '../components/CardUI';
+import Logged from '../components/LoggedInName';
 
 const CardPage = () =>
 {
     return(
         <div>
-            <PageTitle />
-            <LoggedInName />
-            <CardUI />
+            
+            <NavHome />
+            <br />
+            <Card />
+            <Logged />
         </div>
     );
 }

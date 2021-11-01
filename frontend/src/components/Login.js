@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Login()
 {
@@ -57,15 +58,20 @@ function Login()
     };
 
     return(
-      <div id="loginDiv">
-        <form onSubmit={doLogin}>
-        <span id="inner-title">PLEASE LOG IN</span><br />
-        <input type="text" id="loginName" placeholder="Username" ref={(c) => loginName = c} />
-        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} />
-        <input type="submit" id="loginButton" class="buttons" value = "Do It"
-          onClick={doLogin} />
-        </form>
-        <span id="loginResult">{message}</span>
+        <div class="box">
+        <div>
+            <h3>Please sign in</h3>
+            <div class="form-box">
+                <input type="email" id="loginNam" placeholder="Email / Username"  ref={(c) => loginName = c}/>
+            </div>
+            <div class="form-box">
+                <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c} />
+            </div>
+            <a href="/Email" class="forgot">Forgot Password?</a>
+
+            <input type="button" value="Login" onClick={doLogin}/>
+            <input type ="button" value="Register" />
+        </div>
      </div>
     );
 };

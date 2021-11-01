@@ -4,8 +4,13 @@ import './App.css';
 
 import LoginPage from './pages/LoginPage';
 import CardPage from './pages/CardPage';
+import Email from './pages/Email';
+import nav from 'react-bootstrap/Nav';
+<script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin></script>
+
 
 function App() {
+  
   return (
     <Router >
       <Switch>
@@ -14,6 +19,9 @@ function App() {
         </Route>
         <Route path="/cards" exact>
           <CardPage />
+        </Route>
+        <Route path="/eMail" exact>
+          <Email />
         </Route>
         <Redirect to="/" />
       </Switch>  
