@@ -3,7 +3,7 @@ exports.setApp = function ( app, client )
     //load user model
     const User = require("./models/user.js");
     //load card model
-    const Card = require("./models/card.js");
+    // const Card = require("./models/card.js");
     const bcrypt = require("bcrypt");
 
   //REGISTER
@@ -72,7 +72,7 @@ exports.setApp = function ( app, client )
     
       var error = '';
       try{
-        const user = await User.findOne({Login: req.body.login});
+        const user = await User.findOne({Email: req.body.email});
         !user && res.status(404).json("User not found");
   
         const validPassword = await bcrypt.compare(req.body.password, user.Password);
@@ -80,18 +80,19 @@ exports.setApp = function ( app, client )
 
         var id = -1;
         var fn = '';
-        var ln = '';
         var ret;
 
         if( user.length !== 0 )
         {
-          id = user.UserId;
+          id = user.id;
           fn = user.FirstName;
-          ln = user.LastName;
+          console.log(id);
+          console.log(fn);
+         
           try
           {
             const token = require("./createJWT.js");
-            ret = token.createToken( fn, ln, id );
+            ret = token.createToken( fn, id );
           }
           catch(e)
           {
