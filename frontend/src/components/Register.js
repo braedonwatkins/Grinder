@@ -58,29 +58,68 @@ const Register = () => {
     });
   };
 
-  return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="name">Firstname</label>
-        <input
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        ></input>
-        <label htmlFor="email">Email</label>
-        <input
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        ></input>
-        <label htmlFor="password">Password</label>
-        <input
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        ></input>
+// return (
+// <div class="box">
+//   <div>
+//     <h3>Create an Account</h3>
+//     <form onSubmit={onSubmit}>
+//       <label htmlFor="name">Firstname</label>
+//       <input
+//         value={name}
+//         onChange={(event) => setName(event.target.value)}
+//       ></input>
+//       <label htmlFor="email">Email</label>
+//       <input
+//         value={email}
+//         onChange={(event) => setEmail(event.target.value)}
+//       ></input>
+//       <label htmlFor="password">Password</label>
+//       <input
+//         value={password}
+//         onChange={(event) => setPassword(event.target.value)}
+//       ></input>
 
-        <button type="submit">Register</button>
-      </form>
+//       <button type="submit">Register</button>
+//     </form>
+//   </div>
+// </div>
+// );
+
+  return (
+    <div class="box">
+      <div>
+        <h3>Create an account</h3>
+        <p class="text-muted">Please fill out all fields</p>
+        <form onSubmit={onSubmit}>
+          <div class="form-box">
+            <input type="firstname" placeholder="Enter First Name" 
+              value={name}
+              onChange={(event) => setName(event.target.value)}></input>
+          </div>
+          <div class="form-box">
+            <input type="email" placeholder="Enter Email Address" 
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}></input>
+          </div>
+          <div class="form-floating">
+            <input type="password" placeholder="Enter Password" 
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}></input>
+          </div>
+          <div class="form-floating">
+            <input type="password" placeholder="Confirm Password"/>
+          </div>
+          <a href="index.html" class="forgot">Already have an account?</a>
+        </form>
+        
+        <input type="button" value="Register"/>
+     </div>
     </div>
   );
+
+
+
+
 };
 
 export default Register;

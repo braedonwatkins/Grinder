@@ -41,6 +41,7 @@ body {
     z-index: 2;
 }
 
+.box input[type="firstname"], 
 .box input[type="email"], 
 .box input[type="password"] {
     border: 0;
@@ -56,6 +57,7 @@ body {
     border-radius: 24px;
     transition: .25s
 }
+.box input[type="firstname"]:focus,
 .box input[type="email"]:focus,
 .box input[type="password"]:focus {
     width: 300px;
