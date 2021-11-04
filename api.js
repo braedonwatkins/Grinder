@@ -9,10 +9,10 @@ exports.setApp = function ( app, client )
   //REGISTER
     app.post('/api/signup', async (req, res, next) =>
     {
-      try{
-        // check if email already exists
-      const user = await User.findOne({Login: req.body.login});
-      user && res.status(409).json("Email Already Exists");
+      // try{
+      //   // check if email already exists
+      // const user = await User.findOne({Email: req.body.email});
+      // user && res.status(409).json("Email Already Exists");
 
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(req.body.password, salt);
@@ -31,12 +31,12 @@ exports.setApp = function ( app, client )
         console.log(e.message);
       }
     
-      const newUser = new User({ FirstName: req.body.firstname, 
-        LastName: req.body.lastname, 
-        Login: req.body.login, 
-        Password: hashedPassword});
-      var error = 'Signed up successfully';
-    
+      const newUser = new User({ 
+        FirstName: req.body.firstname,  
+        Email: req.body.email, 
+        Password: hashedPassword
+      });
+      var error = "Signed up succesfully";
       try
       {
         // Save new user to database
@@ -58,9 +58,9 @@ exports.setApp = function ( app, client )
       }
     
       var ret = { error: error, jwtToken: refreshedToken };
-      }catch(err){
-        res.status(500).json(err);
-    } 
+    //   }catch(err){
+    //     res.status(500).json(err);
+    // } 
       
       res.status(200).json(ret);
     });
