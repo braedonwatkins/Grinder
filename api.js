@@ -1,113 +1,141 @@
-exports.setApp = function ( app, client )
-{
-    //load user model
-    const User = require("./models/user.js");
-    //load card model
-    // const Card = require("./models/card.js");
-    const bcrypt = require("bcrypt");
+exports.setApp = function (app, client) {
+  //load user model
+  const User = require("./models/user.js");
+  //load card model
+  // const Card = require("./models/card.js");
+  const bcrypt = require("bcrypt");
 
   //REGISTER
-    app.post('/api/signup', async (req, res, next) =>
-    {
-      // try{
-      //   // check if email already exists
-      // const user = await User.findOne({Email: req.body.email});
-      // user && res.status(409).json("Email Already Exists");
+  app.post("/api/signup", async (req, res, next) => {
+    // try{
+    //   // check if email already exists
+    // const user = await User.findOne({Email: req.body.email});
+    // user && res.status(409).json("Email Already Exists");
 
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-      try
-      {
-        if( token.isExpired(jwtToken))
-        {
-          var r = {error:'The JWT is no longer valid', jwtToken: ''};
-          res.status(200).json(r);
-          return;
-        }
+    try {
+      if (token.isExpired(jwtToken)) {
+        var r = { error: "The JWT is no longer valid", jwtToken: "" };
+        res.status(200).json(r);
+        return;
       }
-      catch(e)
-      {
-        console.log(e.message);
-      }
-    
-      const newUser = new User({ 
-        FirstName: req.body.firstname,  
-        Email: req.body.email, 
-        Password: hashedPassword
-      });
-      var error = "Signed up succesfully";
-      try
-      {
-        // Save new user to database
-        newUser.save();
-      }
-      catch(e)
-      {
-        error = e.toString();
-      }
-    
-      var refreshedToken = null;
-      try
-      {
-        refreshedToken = token.refresh(jwtToken);
-      }
-      catch(e)
-      {
-        console.log(e.message);
-      }
-    
-      var ret = { error: error, jwtToken: refreshedToken };
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    const newUser = new User({
+      FirstName: req.body.firstname,
+      Email: req.body.email,
+      Password: hashedPassword,
+    });
+    var error = "Signed up succesfully";
+    try {
+      // Save new user to database
+      newUser.save();
+    } catch (e) {
+      error = e.toString();
+    }
+
+    var refreshedToken = null;
+    try {
+      refreshedToken = token.refresh(jwtToken);
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    var ret = { error: error, jwtToken: refreshedToken };
     //   }catch(err){
     //     res.status(500).json(err);
-    // } 
-      
-      res.status(200).json(ret);
-    });
+    // }
 
+    res.status(200).json(ret);
+  });
 
-    //LOGIN
-    app.post('/api/login', async (req, res, next) => 
-    {
-    
-      var error = '';
-      try{
-        const user = await User.findOne({Email: req.body.email});
-        !user && res.status(404).json("User not found");
-  
-        const validPassword = await bcrypt.compare(req.body.password, user.Password);
-        !validPassword && res.status(400).json("Wrong password");
+  //LOGIN
+  app.post("/api/login", async (req, res, next) => {
+    var error = "";
+    try {
+      const user = await User.findOne({ Email: req.body.email });
+      !user && res.status(404).json("User not found");
 
-        var id = -1;
-        var fn = '';
-        var ret;
+      const validPassword = await bcrypt.compare(
+        req.body.password,
+        user.Password
+      );
+      !validPassword && res.status(400).json("Wrong password");
 
-        if( user.length !== 0 )
-        {
-          id = user.id;
-          fn = user.FirstName;
-          console.log(id);
-          console.log(fn);
-         
-          try
-          {
-            const token = require("./createJWT.js");
-            ret = token.createToken( fn, id );
-          }
-          catch(e)
-          {
-            ret = {error:e.message};
-          }
+      var id = -1;
+      var fn = "";
+      var ret;
+
+      if (user.length !== 0) {
+        id = user.id;
+        fn = user.FirstName;
+        console.log(id);
+        console.log(fn);
+
+        try {
+          const token = require("./createJWT.js");
+          ret = token.createToken(fn, id);
+        } catch (e) {
+          ret = { error: e.message };
         }
-        else
-        {
-            ret = {error:"Login/Password incorrect"};
+      } else {
+        ret = { error: "Login/Password incorrect" };
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+    res.status(200).json(ret);
+  });
+
+  // MATCH
+  app.put("/api/:curId/match", async (req, res) => {
+    if (req.body.userId !== req.params.curId) {
+      try {
+        const currentUser = await User.findById(req.params.curId); // current user
+        const user = await User.findById(req.body.userId); // user to match with
+
+        if (!currentUser.Friends.includes(req.body.userId)) {
+          await currentUser.updateOne({ $push: { Friends: req.body.userId } });
+          await user.updateOne({ $push: { Friends: req.params.curId } });
+          res.status(200).json("Users have been matched");
+        } else {
+          res.status(403).json("You already matched with this user");
         }
-      }catch(err){
+      } catch (err) {
         res.status(500).json(err);
       }
-      res.status(200).json(ret);
+    } else {
+      res.status(403).json("You can't match with yourself");
     }
-    // Add get user profile api
-    );
-}
+  });
+
+  //UNMATCH
+  app.put("/api/:curId/unmatch", async (req, res) => {
+    if (req.body.userId !== req.params.curId) {
+      try {
+        const currentUser = await User.findById(req.params.curId); // current user
+        const user = await User.findById(req.body.userId); // user to unmatch with
+
+        if (currentUser.Friends.includes(req.body.userId)) {
+          await currentUser.updateOne({
+            $pull: { Friends: req.body.userId },
+          });
+          await user.updateOne({
+            $pull: { Friends: req.params.curId },
+          });
+          res.status(200).json("Users have been unmatched");
+        } else {
+          res.status(403).json("You aren't matched with this user");
+        }
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    } else {
+      res.status(403).json("You can't unmatch yourself");
+    }
+  });
+};
