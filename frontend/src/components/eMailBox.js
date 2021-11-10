@@ -56,7 +56,7 @@ function Login() {
                 <div class="form-box">
                     <input type="email" id="loginNam" placeholder="Email"  ref={(c) => loginName = c}/>
                 </div>
-                <input type="button" value="Submit" onClick={Submit}/>
+                <a type="button" value="Submit" onClick={Submit}>Submit</a>
             </div>
          </div>
     )

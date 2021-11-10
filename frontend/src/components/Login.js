@@ -3,6 +3,7 @@ import { AccountContext } from './Account';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 function Login()
 {
     var loginName;
@@ -66,8 +67,8 @@ function Login()
             </div>
             <a href="/Email" class="forgot">Forgot Password?</a>
 
-            <input type="button" value="Login" onClick={doLogin}/>
-            <input type ="button" value="Register" />
+            <a type = "button" value="Login" onClick={doLogin}>Login</a>
+            <a href="/register" type ="button" value="Register">Register</a>
         </div>
      </div>
     );

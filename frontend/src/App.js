@@ -8,6 +8,7 @@ import Email from './pages/Email';
 import nav from 'react-bootstrap/Nav';
 import { Account } from "./components/Account";
 import Register from './components/Register';
+import EditProfile from './components/EditProfile';
 <script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin></script>
 
 
@@ -19,6 +20,9 @@ function App() {
         <Switch>
           <Route path="/" exact>
             <LoginPage />
+          </Route>
+          <Route path="/editprofile" exact>
+            <EditProfile />
           </Route>
           <Route path="/register" exact>
             {/* Add register Component to Register Page */}

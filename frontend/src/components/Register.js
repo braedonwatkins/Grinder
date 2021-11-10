@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { AccountContext } from './Account';
 import UserPool from "../UserPool";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -112,7 +115,7 @@ const Register = () => {
           <a href="index.html" class="forgot">Already have an account?</a>
         </form>
         
-        <input type="button" value="Register"/>
+        <a type="button" value="Register">Register</a>
      </div>
     </div>
   );
