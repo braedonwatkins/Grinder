@@ -199,4 +199,60 @@ exports.setApp = function (app, client) {
       res.status(500).json(err);
     }
   });
+  
+  //EDIT PROFILE
+  // work in progress
+  app.put('/api/edit/:profileId', async (req, res) => {
+    try{
+      const profile = await User.findById(req.params.profileId);
+      await profile.updateOne({$set: {Gamertag: req.body.Gamertag}, });
+      profile.Profile.
+
+      //await profile.updateOne({$push: {Gamertag: req.body.Gamertag}, }).;
+      res.status(200).json(profile);
+    } catch(err) {
+        return res.status(500).json(err);
+    }
+  });
+    /*// if (req.body.userId === req.params.curId) {
+    try {
+      const currentUser = await User.findById(req.params.profileId);
+
+      // Update profile fields: Gamertag, pfp, Favgenre, Bio and Age
+      await currentUser.updateOne({ $set: { Gamertag: req.body.Gamertag} });
+      await currentUser.updateOne({ $push: { ProfilePicture: req.body.ProfilePicture} });
+      await currentUser.updateOne({ $push: { Favgenre: req.body.Favgenre} });
+      await currentUser.updateOne({ $push: { Bio: req.body.Bio} });
+      await currentUser.updateOne({ $push: { Age: req.body.Age} });
+
+      console.log(req.body.Gamertag);
+
+      res.status(200).json("Profile updated successfully");
+
+    } catch (err) {
+      res.status(500).json(err);
+    }*/
+  //});
+
+  // GET USER
+  app.get('/api/getUser/:id', async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      const { Password, ...other } = user._doc;
+      res.status(200).json(other);
+    } catch (err) {
+      res.status(404).json(err);
+    }
+  });
+
+  //GET PROFILE
+  app.get('/api/getProfile/:id', async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      const { _id, FirstName, Password, Email, Friends, __v, ...other } = user._doc;
+      res.status(200).json(other);
+    } catch (err) {
+      res.status(404).json(err);
+    }
+  });
 };
