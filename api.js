@@ -138,4 +138,65 @@ exports.setApp = function (app, client) {
       res.status(403).json("You can't unmatch yourself");
     }
   });
+
+  // get user
+  app.get("/api/users/:id", async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      // In order to not bring password to client side put into internal doc
+      const { Password, ...other } = user._doc;
+      res.status(200).json(other);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+  // new conversation
+  app.post("/api/conversation", async (req, res, next) => {
+    const newConversation = new Conversation({
+      users: [req.body.senderId, req.body.recieverId],
+    });
+    try {
+      const savedConversation = await newConversation.save();
+      res.status(200).json(savedConversation);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+  // get convo of a user
+  app.get("/api/conversation/:userId", async (req, res, next) => {
+    try {
+      const conversation = await Conversation.find({
+        users: { $in: [req.params.userId] },
+      });
+      res.status(200).json(conversation);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+  // add message
+  app.post("/api/message", async (req, res, next) => {
+    const newMessage = new Message(req.body);
+
+    try {
+      const savedMessage = await newMessage.save();
+      res.status(200).json(savedMessage);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+  // get messages
+  app.get("/api/message/:conversationId", async (req, res, next) => {
+    try {
+      const messages = await Message.find({
+        conversationId: req.params.conversationId,
+      });
+      res.status(200).json(messages);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 };
