@@ -113,9 +113,10 @@ const Register = () => {
             <input type="password" placeholder="Confirm Password"/>
           </div>
           <a href="index.html" class="forgot">Already have an account?</a>
+        
+          <a type="button" value="Register">Registe r</a>
         </form>
         
-        <a type="button" value="Register">Register</a>
      </div>
     </div>
   );
