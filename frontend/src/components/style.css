@@ -1,128 +1,127 @@
-
 html,
 body {
   height: 100%;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    background: linear-gradient(to right, #6e0dbe, #3587e4);
-	background-size: 200%, 200%;
-	animation: gradient 7s ease infinite;
-	height: calc(100vh);
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: linear-gradient(to right, #6e0dbe, #3587e4);
+  background-size: 200%, 200%;
+  animation: gradient 7s ease infinite;
+  height: calc(100vh);
 }
 @keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .box {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
-    background-color: #242121;
-    border-radius: 30px;
-    text-align: center;
-    transition: .75s;
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  background-color: #242121;
+  border-radius: 30px;
+  text-align: center;
+  transition: 0.75s;
 }
-
 
 .box .form-box:focus-within {
-    z-index: 2;
+  z-index: 2;
 }
 
-.box input[type="firstname"], 
-.box input[type="email"], 
+.box input[type="firstname"],
+.box input[type="lastname"],
+.box input[type="email"],
 .box input[type="password"] {
-    border: 0;
-    background: none;
-    display: block;
-    margin: 20px auto;
-    text-align: center;
-    border: 2px solid #3498db;
-    padding: 10px 10px;
-    width: 250px;
-    outline: none;
-    color: white;
-    border-radius: 24px;
-    transition: .25s
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 10px 10px;
+  width: 250px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
 }
 .box input[type="firstname"]:focus,
+.box input[type="lastname"]:focus,
 .box input[type="email"]:focus,
 .box input[type="password"]:focus {
-    width: 300px;
-    border-color: #2ecc71
+  width: 300px;
+  border-color: #2ecc71;
 }
 .box a[type="button"] {
-    border: 100px;
-    background: none;
-    display: block;
-    margin: 15px auto;
-    text-align: center;
-    border: 1px solid #2ecc71;
-    padding: 10px 50px;
-    outline: none;
-    color: white;
-    border-radius: 25px;
-    transition: .25s;
-    cursor: pointer;
-    width: 200px;
-    text-decoration: none;
+  border: 100px;
+  background: none;
+  display: block;
+  margin: 15px auto;
+  text-align: center;
+  border: 1px solid #2ecc71;
+  padding: 10px 50px;
+  outline: none;
+  color: white;
+  border-radius: 25px;
+  transition: 0.25s;
+  cursor: pointer;
+  width: 200px;
+  text-decoration: none;
 }
 .box a[type="button"]:hover {
-    background: #2ecc71
+  background: #2ecc71;
 }
 .box h3 {
-    color: white;
-    text-transform: uppercase;
-    font-weight: 0;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 0;
 }
 .forgot {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
-  
- main {
-    display: flex;
-    flex-wrap: nowrap;
-    height: 100vh;
-    height: -webkit-fill-available;
-    max-height: 100vh;
-    overflow-x: auto;
-    overflow-y: hidden;
+main {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100vh;
+  height: -webkit-fill-available;
+  max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .editProfileBox {
-    background-color: #242121;
-    color: white;
+  background-color: #242121;
+  color: white;
 }
 
 .editProfileBox a[type="button"] {
-    border: 100px;
-    background: none;
-    display: block;
-    margin: 15px auto;
-    text-align: center;
-    border: 1px solid #2ecc71;
-    padding: 10px 50px;
-    outline: none;
-    color: white;
-    border-radius: 25px;
-    transition: .25s;
-    cursor: pointer;
-    width: 200px;
-    text-decoration: none;
+  border: 100px;
+  background: none;
+  display: block;
+  margin: 15px auto;
+  text-align: center;
+  border: 1px solid #2ecc71;
+  padding: 10px 50px;
+  outline: none;
+  color: white;
+  border-radius: 25px;
+  transition: 0.25s;
+  cursor: pointer;
+  width: 200px;
+  text-decoration: none;
 }
 .editProfileBox a[type="button"]:hover {
-    background: #2ecc71
+  background: #2ecc71;
 }

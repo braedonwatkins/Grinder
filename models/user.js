@@ -6,22 +6,27 @@ const ProfileSchema = require("./profile");
 const UserSchema = new Schema({
   FirstName: {
     type: String,
-    required: true
+    required: true,
+  },
+  Lastname: {
+    type: String,
   },
   Email: {
     type: String,
-    required: true
+    required: true,
   },
   Password: {
     type: String,
-    required: true
+    required: true,
   },
-  Friends: [{
-    type: mongoose.Schema.Types.ObjectId
-  }],
+  Friends: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+  ],
   Profile: {
     type: mongoose.Schema.Types.Object,
-    default: ProfileSchema
+    default: ProfileSchema,
   },
 });
 module.exports = User = mongoose.model("User", UserSchema, "Users");
