@@ -27,6 +27,7 @@ exports.setApp = function (app, client) {
 
     const newUser = new User({
       FirstName: req.body.firstname,
+      LastName: req.body.lastname,
       Email: req.body.email,
       Password: hashedPassword,
     });
@@ -206,8 +207,7 @@ exports.setApp = function (app, client) {
     try {
       const profile = await User.findById(req.params.profileId);
       await profile.updateOne({ $set: { Gamertag: req.body.Gamertag } });
-      profile.Profile//await profile.updateOne({$push: {Gamertag: req.body.Gamertag}, }).;
-      .res
+      profile.Profile.res //await profile.updateOne({$push: {Gamertag: req.body.Gamertag}, }).;
         .status(200)
         .json(profile);
     } catch (err) {
