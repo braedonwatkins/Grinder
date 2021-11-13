@@ -199,22 +199,22 @@ exports.setApp = function (app, client) {
       res.status(500).json(err);
     }
   });
-  
+
   //EDIT PROFILE
   // work in progress
-  app.put('/api/edit/:profileId', async (req, res) => {
-    try{
+  app.put("/api/edit/:profileId", async (req, res) => {
+    try {
       const profile = await User.findById(req.params.profileId);
-      await profile.updateOne({$set: {Gamertag: req.body.Gamertag}, });
-      profile.Profile.
-
-      //await profile.updateOne({$push: {Gamertag: req.body.Gamertag}, }).;
-      res.status(200).json(profile);
-    } catch(err) {
-        return res.status(500).json(err);
+      await profile.updateOne({ $set: { Gamertag: req.body.Gamertag } });
+      profile.Profile//await profile.updateOne({$push: {Gamertag: req.body.Gamertag}, }).;
+      .res
+        .status(200)
+        .json(profile);
+    } catch (err) {
+      return res.status(500).json(err);
     }
   });
-    /*// if (req.body.userId === req.params.curId) {
+  /*// if (req.body.userId === req.params.curId) {
     try {
       const currentUser = await User.findById(req.params.profileId);
 
@@ -235,7 +235,7 @@ exports.setApp = function (app, client) {
   //});
 
   // GET USER
-  app.get('/api/getUser/:id', async (req, res) => {
+  app.get("/api/getUser/:id", async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
       const { Password, ...other } = user._doc;
@@ -246,13 +246,27 @@ exports.setApp = function (app, client) {
   });
 
   //GET PROFILE
-  app.get('/api/getProfile/:id', async (req, res) => {
+  app.get("/api/getProfile/:id", async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
-      const { _id, FirstName, Password, Email, Friends, __v, ...other } = user._doc;
+      const { _id, FirstName, Password, Email, Friends, __v, ...other } =
+        user._doc;
       res.status(200).json(other);
     } catch (err) {
       res.status(404).json(err);
+    }
+  });
+  // Deactivate Account
+  app.delete("/api/deactivate/:id", async (req, res) => {
+    if (req.body.userId === req.params.id) {
+      try {
+        await User.findByIdAndDelete(req.body.userId);
+        res.status(200).json("Account deactivated");
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    } else {
+      return res.status(403).json("You can delete only your account!");
     }
   });
 };
