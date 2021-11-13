@@ -56,12 +56,12 @@ function Login() {
                 id: id,
               };
               localStorage.setItem("user_data", JSON.stringify(user));
+              window.location.href = "/home";
             }
           })
           .catch(function (error) {
             console.log(error);
           });
-        window.location.href = "/home";
       })
       .catch((err) => {
         console.error("Failed to login", err);
