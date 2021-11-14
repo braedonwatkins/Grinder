@@ -22,41 +22,41 @@ function Deactivate() {
 			UserPoolId: 'us-east-2_34v9YRHja',
 		};
 
-		cognito.adminDeleteUser(deleteData, (err, data) => {
-			if (err) {
-				console.error(err);
-				return;
-			}
+		// cognito.adminDeleteUser(deleteData, (err, data) => {
+		// 	if (err) {
+		// 		console.error(err);
+		// 		return;
+		// 	}
 
-			// On success store user into DB
-			const userToDeactivate = {
-				userId: objectId,
-			};
-			var userToDeactivatejson = JSON.stringify(userToDeactivate);
+		// 	// On success store user into DB
+		// 	const userToDeactivate = {
+		// 		userId: objectId,
+		// 	};
+		// 	var userToDeactivatejson = JSON.stringify(userToDeactivate);
 
-			var config = {
-				method: 'delete',
-				url: bp.buildPath('api/deactivate/' + objectId),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				data: userToDeactivatejson,
-			};
+		// 	var config = {
+		// 		method: 'delete',
+		// 		url: bp.buildPath('api/deactivate/' + objectId),
+		// 		headers: {
+		// 			'Content-Type': 'application/json',
+		// 		},
+		// 		data: userToDeactivatejson,
+		// 	};
 
-			axios(config)
-				.then(function (response) {
-					var res = response.data;
+		// 	axios(config)
+		// 		.then(function (response) {
+		// 			var res = response.data;
 
-					if (res.error) {
-						console.log('error');
-					} else {
-						window.location.href = '/';
-					}
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
-		});
+		// 			if (res.error) {
+		// 				console.log('error');
+		// 			} else {
+		// 				window.location.href = '/';
+		// 			}
+		// 		})
+		// 		.catch(function (error) {
+		// 			console.log(error);
+		// 		});
+		// });
 	};
 
 	return (
