@@ -125,3 +125,59 @@ main {
 .editProfileBox a[type="button"]:hover {
   background: #2ecc71;
 }
+
+/*Profile styling*/
+.profile {
+    width: 100%;
+    max-width: 50%;
+    padding: 15px;
+    margin: auto;
+    background-color: #242121;
+    border-radius: 30px;
+    transition: .75s;
+}
+.profile .name{
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 0;
+}
+.profile img {
+    border-radius: 10px;
+    width: 40%;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.profile .text {
+    border: 2px solid #3498db;
+    background:rgb(71, 66, 66);
+    border-radius: 20px;
+    height: 200px;
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;
+    font-size: 15px;
+}
+.profile input[type="button"] {
+    border: 100px;
+    background: none;
+    display: block;
+    margin: 15px auto;
+    text-align: center;
+    border: 1px solid #2ecc71;
+    padding: 10px 50px;
+    outline: none;
+    color: white;
+    border-radius: 25px;
+    transition: .25s;
+    cursor: pointer;
+    width: 150px;
+}
+.profile input[type="button"]:hover {
+    background: #2ecc71
+}
+
+p {
+    color: red;
+}

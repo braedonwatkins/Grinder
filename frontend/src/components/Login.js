@@ -88,6 +88,9 @@ function Login() {
             ref={(c) => (loginPassword = c)}
           />
         </div>
+        <p id="error">
+          {message}
+        </p>
         <a href="/Email" class="forgot">
           Forgot Password?
         </a>
