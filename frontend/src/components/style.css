@@ -82,6 +82,27 @@ body {
 .box a[type="button"]:hover {
   background: #2ecc71;
 }
+
+.box button[type="button"] {
+  border: 100px;
+  background: none;
+  display: block;
+  margin: 15px auto;
+  text-align: center;
+  border: 1px solid #2ecc71;
+  padding: 10px 50px;
+  outline: none;
+  color: white;
+  border-radius: 25px;
+  transition: 0.25s;
+  cursor: pointer;
+  width: 200px;
+  text-decoration: none;
+}
+.box button[type="button"]:hover {
+  background: #2ecc71;
+}
+
 .box h3 {
   color: white;
   text-transform: uppercase;
@@ -104,6 +125,10 @@ main {
 .editProfileBox {
   background-color: #242121;
   color: white;
+  width: 100%;
+  min-width: 800px;   
+  padding: auto;     
+  display: flex;
 }
 
 .editProfileBox a[type="button"] {
@@ -125,6 +150,81 @@ main {
 .editProfileBox a[type="button"]:hover {
   background: #2ecc71;
 }
+
+.editProfileContainer {
+  border-radius: 25px;
+  max-width: 50%;
+  width: auto;
+  margin: auto;
+  padding: auto;
+  text-align: center;
+  display: flex;
+}
+
+.inputSpacing {
+  margin: auto;
+}
+
+.editProfileFields input[type="firstName"],
+.editProfileFields input[type="lastName"],
+.editProfileFields input[type="email"],
+.editProfileFields input[type="age"]{
+  border: 0;
+  background: none;
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 10px 10px;
+  width: 350px;
+  min-width: 100px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+}
+
+.editProfileFields textarea[type="bio"]{
+  border: 0;
+  background: none;
+  margin: 10px auto;
+  text-align: left;
+  border: 2px solid #3498db;
+  padding: 10px;
+  width: 700px;
+  height: 200px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  display: flex;
+  padding-top: 10px;
+
+}
+
+.editProfileFields input[type="firstName"]:focus,
+.editProfileFields input[type="lastName"]:focus,
+.editProfileFields input[type="email"]:focus,
+.editProfileFields input[type="age"]:focus{
+  
+  border-color: #2ecc71;
+}
+
+.editProfileFields input[type="bio"]:focus{
+
+  border-color: #2ecc71;
+}
+
+.editProfileFields:focus-within {
+  z-index: 2;
+}
+
+.editProfileLabels{
+  font-size: 13pt ;
+}
+
+
+
 
 /*Profile styling*/
 .profile {
