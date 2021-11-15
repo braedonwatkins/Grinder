@@ -167,7 +167,7 @@ function EditProfile() {
             </div>
             <div>
                 <a type="button">Update</a>
-                <a type="button">Cancell</a>
+                <a type="button">Cancel</a>
             </div>
           </div>
           

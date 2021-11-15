@@ -8,7 +8,7 @@ import Email from './pages/Email';
 import nav from 'react-bootstrap/Nav';
 import { Account } from "./components/Account";
 import Register from './components/Register';
-import EditProfile from './components/EditProfile';
+import EditProfile from './pages/EditProfilePage';
 <script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin></script>
 
 
