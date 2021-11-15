@@ -145,9 +145,8 @@ const Register = () => {
           </a>
         </form>
 
-        <button type="button" value="Register" onClick={onSubmit}>
-          Register
-        </button>
+        <input type="button" value="Register" onClick={onSubmit}>
+        </input>
       </div>
     </div>
   );

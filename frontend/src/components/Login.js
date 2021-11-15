@@ -95,12 +95,14 @@ function Login() {
           Forgot Password?
         </a>
 
-        <a type="button" value="Login" onClick={doLogin}>
+        {/* <a type="button" value="Login" onClick={doLogin}>
           Login
         </a>
         <a href="/register" type="button" value="Register">
           Register
-        </a>
+        </a> */}
+        <input type="button" value="Login" onClick={doLogin}/>
+        <input type ="button" value="Register" />
       </div>
     </div>
   );

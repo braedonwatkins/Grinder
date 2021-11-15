@@ -36,8 +36,8 @@ function EditProfile() {
       <div className="editProfileBox" class="editProfileBox">          
             
           <div className="editProfileFields p-4 p-md-5 editProfileFields" id="v-pills-tabContent">
-            <h3 className="mb-4 ml-4">Edit Profile</h3>
-            <h4 className="mb-4 ml-4">Test Name </h4>
+            <h3 className="">Edit Profile</h3>
+            <h4 className="">Test Name </h4>
             <div className="row">
               <div className="col-md-6 inputSpacing">
                 <div className="form-group">
