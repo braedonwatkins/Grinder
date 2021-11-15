@@ -254,10 +254,24 @@ main {
     border-radius: 20px;
     height: 200px;
     padding-top: 15px;
-    padding-left: 10px;
+    padding-left: 15px;
     padding-right: 10px;
     text-align: left;
     font-size: 15px;
+    overflow-x:auto;
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+
+}
+::-webkit-scrollbar-button:end{height: 20px;}
+::-webkit-scrollbar-button:start{height: 20px;}
+
+::-webkit-scrollbar-thumb:hover{
+  background: #3498db;
+  border-radius: 50px;
 }
 .profile input[type="button"] {
     border: 100px;
@@ -280,4 +294,12 @@ main {
 
 p {
     color: red;
+}
+
+.profile p{
+  color: white;
+}
+
+.profile .list{
+  list-style-type: none;
 }
