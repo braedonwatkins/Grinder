@@ -1,3 +1,6 @@
+/* eslint-disable */
+
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
@@ -7,8 +10,8 @@ import CardPage from './pages/CardPage';
 import Email from './pages/Email';
 import nav from 'react-bootstrap/Nav';
 import { Account } from "./components/Account";
-import Register from './components/Register';
-import EditProfile from './components/EditProfile';
+import Register from './pages/RegisterPage';
+import EditProfile from './pages/EditProfilePage';
 <script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin></script>
 
 

@@ -24,6 +24,28 @@ body {
   }
 }
 
+input[type="button"]{
+  border: 100px;
+  background: none;
+  display: block;
+  margin: 15px auto;
+  text-align: center;
+  border: 1px solid #2ecc71;
+  padding: 10px 50px;
+  outline: none;
+  color: white;
+  border-radius: 25px;
+  transition: 0.25s;
+  cursor: pointer;
+  width: 200px;
+  text-decoration: none;
+}
+
+input[type="button"]:hover {
+  background: #2ecc71;
+}
+
+
 .box {
   width: 100%;
   max-width: 330px;
@@ -82,6 +104,48 @@ body {
 .box a[type="button"]:hover {
   background: #2ecc71;
 }
+
+.box button[type="button"] {
+  border: 100px;
+  background: none;
+  display: block;
+  margin: 15px auto;
+  text-align: center;
+  border: 1px solid #2ecc71;
+  padding: 10px 50px;
+  outline: none;
+  color: white;
+  border-radius: 25px;
+  transition: 0.25s;
+  cursor: pointer;
+  width: 200px;
+  text-decoration: none;
+}
+.box button[type="button"]:hover {
+  background: #2ecc71;
+}
+
+.button {
+  border: 100px;
+  background: none;
+  display: block;
+  margin: 15px auto;
+  text-align: center;
+  border: 1px solid #2ecc71;
+  padding: 10px 50px;
+  outline: none;
+  color: white;
+  border-radius: 25px;
+  transition: 0.25s;
+  cursor: pointer;
+  width: 200px;
+  text-decoration: none;
+}
+.button:hover {
+  background: #2ecc71;
+}
+
+
 .box h3 {
   color: white;
   text-transform: uppercase;
@@ -104,6 +168,10 @@ main {
 .editProfileBox {
   background-color: #242121;
   color: white;
+  width: 100%;
+  min-width: 800px;   
+  padding: auto;     
+  display: flex;
 }
 
 .editProfileBox a[type="button"] {
@@ -124,4 +192,157 @@ main {
 }
 .editProfileBox a[type="button"]:hover {
   background: #2ecc71;
+}
+
+.editProfileContainer {
+  border-radius: 25px;
+  max-width: 50%;
+  width: auto;
+  margin: auto;
+  padding: auto;
+  text-align: center;
+  display: flex;
+}
+
+.inputSpacing {
+  margin: auto;
+}
+
+.editProfileFields input[type="firstName"],
+.editProfileFields input[type="lastName"],
+.editProfileFields input[type="email"],
+.editProfileFields input[type="age"]{
+  border: 0;
+  background: none;
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  border: 2px solid #3498db;
+  padding: 10px 10px;
+  width: 350px;
+  min-width: 100px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+}
+
+.editProfileFields textarea[type="bio"]{
+  border: 0;
+  background: none;
+  margin: 10px auto;
+  text-align: left;
+  border: 2px solid #3498db;
+  padding: 10px;
+  width: 700px;
+
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition: 0.25s;
+  display: flex;
+  padding-top: 10px;
+
+}
+
+.editProfileFields input[type="firstName"]:focus,
+.editProfileFields input[type="lastName"]:focus,
+.editProfileFields input[type="email"]:focus,
+.editProfileFields input[type="age"]:focus{
+  
+  border-color: #2ecc71;
+}
+
+.editProfileFields input[type="bio"]:focus{
+
+  border-color: #2ecc71;
+}
+
+.editProfileFields:focus-within {
+  z-index: 2;
+}
+
+.editProfileLabels{
+  font-size: 13pt ;
+}
+
+
+
+
+/*Profile styling*/
+.profile {
+    width: 100%;
+    max-width: 50%;
+    padding: 15px;
+    margin: auto;
+    background-color: #242121;
+    border-radius: 30px;
+    transition: .75s;
+}
+.profile .name{
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 0;
+}
+.profile img {
+    border-radius: 10px;
+    width: 40%;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.profile .text {
+    border: 2px solid #3498db;
+    background:rgb(71, 66, 66);
+    border-radius: 20px;
+    height: 200px;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 10px;
+    text-align: left;
+    font-size: 15px;
+    overflow-x:auto;
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+
+}
+::-webkit-scrollbar-button:end{height: 20px;}
+::-webkit-scrollbar-button:start{height: 20px;}
+
+::-webkit-scrollbar-thumb:hover{
+  background: #3498db;
+  border-radius: 50px;
+}
+.profile input[type="button"] {
+    border: 100px;
+    background: none;
+    display: block;
+    margin: 15px auto;
+    text-align: center;
+    border: 1px solid #2ecc71;
+    padding: 10px 50px;
+    outline: none;
+    color: white;
+    border-radius: 25px;
+    transition: .25s;
+    cursor: pointer;
+    width: 150px;
+}
+.profile input[type="button"]:hover {
+    background: #2ecc71
+}
+
+p {
+    color: red;
+}
+
+.profile p{
+  color: white;
+}
+
+.profile .list{
+  list-style-type: none;
 }

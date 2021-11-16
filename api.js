@@ -1,8 +1,11 @@
 exports.setApp = function (app, client) {
   //load user model
   const User = require("./models/user.js");
-  //load card model
-  // const Card = require("./models/card.js");
+
+  //load conversation and message models
+  const Conversation = require("./models/ConversationSchema");
+  const Message = require("./models/MessageSchema")
+  
   const bcrypt = require("bcrypt");
 
   //REGISTER
@@ -201,61 +204,6 @@ exports.setApp = function (app, client) {
     }
   });
 
-  //EDIT PROFILE
-  // work in progress
-  app.put("/api/edit/:profileId", async (req, res) => {
-    try {
-      const profile = await User.findById(req.params.profileId);
-      await profile.updateOne({ $set: { Gamertag: req.body.Gamertag } });
-      profile.Profile.res //await profile.updateOne({$push: {Gamertag: req.body.Gamertag}, }).;
-        .status(200)
-        .json(profile);
-    } catch (err) {
-      return res.status(500).json(err);
-    }
-  });
-  /*// if (req.body.userId === req.params.curId) {
-    try {
-      const currentUser = await User.findById(req.params.profileId);
-
-      // Update profile fields: Gamertag, pfp, Favgenre, Bio and Age
-      await currentUser.updateOne({ $set: { Gamertag: req.body.Gamertag} });
-      await currentUser.updateOne({ $push: { ProfilePicture: req.body.ProfilePicture} });
-      await currentUser.updateOne({ $push: { Favgenre: req.body.Favgenre} });
-      await currentUser.updateOne({ $push: { Bio: req.body.Bio} });
-      await currentUser.updateOne({ $push: { Age: req.body.Age} });
-
-      console.log(req.body.Gamertag);
-
-      res.status(200).json("Profile updated successfully");
-
-    } catch (err) {
-      res.status(500).json(err);
-    }*/
-  //});
-
-  // GET USER
-  app.get("/api/getUser/:id", async (req, res) => {
-    try {
-      const user = await User.findById(req.params.id);
-      const { Password, ...other } = user._doc;
-      res.status(200).json(other);
-    } catch (err) {
-      res.status(404).json(err);
-    }
-  });
-
-  //GET PROFILE
-  app.get("/api/getProfile/:id", async (req, res) => {
-    try {
-      const user = await User.findById(req.params.id);
-      const { _id, FirstName, Password, Email, Friends, __v, ...other } =
-        user._doc;
-      res.status(200).json(other);
-    } catch (err) {
-      res.status(404).json(err);
-    }
-  });
   // Deactivate Account
   app.delete("/api/deactivate/:id", async (req, res) => {
     if (req.body.userId === req.params.id) {
@@ -267,6 +215,66 @@ exports.setApp = function (app, client) {
       }
     } else {
       return res.status(403).json("You can delete only your account!");
+    }
+  });
+
+  //EDIT PROFILE
+  app.put("/api/edit/:id", async (req, res) => {
+    try {
+      const user = await User.findByIdAndUpdate(req.params.id, {
+        $set: req.body,
+      });
+
+      res.status(200).json("profile updated successfully");
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  });
+
+  // GET USER
+  app.get("/api/getUser/:id", async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      const { Password, ...other } = user._doc;
+      res.status(200).json(other);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+  //GET PROFILE
+  app.get("/api/getProfile/:id", async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      const { _id, FirstName, Password, Email, Friends, __v, ...other } =
+        user._doc;
+      res.status(200).json(other);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+  //GET FRIENDS
+  app.get("/api/getFriends/:id", async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      const { _id, FirstName, Password, Email, Profile, __v, ...other } =
+        user._doc;
+      res.status(200).json(other);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+  // GET LIKES
+  // work in progress
+  app.get("/api/getLike/:id", async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      const { _id, FirstName, Friends, Password, Email, __v, Profile:Gamertag, ...favBuf } = user._doc;
+      res.status(200).json(favBuf);
+    } catch (err) {
+      res.status(500).json(err);
     }
   });
 };

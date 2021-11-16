@@ -88,16 +88,21 @@ function Login() {
             ref={(c) => (loginPassword = c)}
           />
         </div>
+        <p id="error">
+          {message}
+        </p>
         <a href="/Email" class="forgot">
           Forgot Password?
         </a>
 
-        <a type="button" value="Login" onClick={doLogin}>
+        {/* <a type="button" value="Login" onClick={doLogin}>
           Login
         </a>
         <a href="/register" type="button" value="Register">
           Register
-        </a>
+        </a> */}
+        <input type="button" value="Login" onClick={doLogin}/>
+        <a type ="button" value="Register" href="/register">Register</a>
       </div>
     </div>
   );

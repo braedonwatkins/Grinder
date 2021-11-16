@@ -30,101 +30,45 @@ function EditProfile() {
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
   />
-  <section className="py-5 my-5">
-    <div className="container">
+  <section className="py-5 my-2 editProfileContainer">
+    <div className="container editProfileContainer">
       
-      <div className="editProfileBox shadow rounded-lg d-block d-sm-flex" class="editProfileBox">
-        <div className="profile-tab-nav border-right">
-          <div className="p-4">
-            <div className="img-circle text-center mb-3">
-              <img src="img/user2.jpg" alt="Image" className="shadow" />
-            </div>
-            <h4 className="text-center">Test Name</h4>
-          </div>
-          <div
-            className="nav flex-column nav-pills"
-            id="v-pills-tab"
-            role="tablist"
-            aria-orientation="vertical"
-          >
-            <a
-              className="nav-link active"
-              id="account-tab"
-              data-toggle="pill"
-              href="#account"
-              role="tab"
-              aria-controls="account"
-              aria-selected="true"
-            >
-              <i className="fa fa-home text-center mr-1" />
-              Account
-            </a>
-            <a
-              className="nav-link"
-              id="password-tab"
-              data-toggle="pill"
-              href="#password"
-              role="tab"
-              aria-controls="password"
-              aria-selected="false"
-            >
-              <i className="fa fa-key text-center mr-1" />
-              Password
-            </a>
+      <div className="editProfileBox" class="editProfileBox">          
             
-            
-          </div>
-        </div>
-        <div className="tab-content p-4 p-md-5" id="v-pills-tabContent">
-          <div
-            className="tab-pane fade show active"
-            id="account"
-            role="tabpanel"
-            aria-labelledby="account-tab"
-          >
-            <h3 className="mb-4">Edit Profile</h3>
+          <div className="editProfileFields p-4 p-md-5 editProfileFields" id="v-pills-tabContent">
+            <h3 className="">Edit Profile</h3>
+            <h4 className="">Test Name </h4>
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-md-6 inputSpacing">
                 <div className="form-group">
-                  <label>First Name</label>
-                  <input type="text" className="form-control" defaultValue='' />
+                  <label className="editProfileLabels">First Name</label>
+                  <input type="firstName" className="editProfileFields" defaultValue='' />
                 </div>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-6 inputSpacing">
                 <div className="form-group">
-                  <label>Last Name</label>
-                  <input type="text" className="form-control" defaultValue='' />
+                  <label className="editProfileLabels">Last Name</label>
+                  <input type="lastName" className="editProfileFields" defaultValue='' />
                 </div>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-6 inputSpacing">
                 <div className="form-group">
-                  <label>Email</label>
-                  <input type="text" className="form-control" defaultValue='' />
+                  <label className="editProfileLabels">Email</label>
+                  <input type="email" className="editProfileFields" defaultValue='' />
                 </div>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-6 inputSpacing">
                 <div className="form-group">
-                  <label>Phone number</label>
-                  <input type="text" className="form-control" defaultValue='' />
+                  <label className="editProfileLabels">Age</label>
+                  <input type="age" className="editProfileFields" defaultValue='' />
                 </div>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-11 inputSpacing">
                 <div className="form-group">
-                  <label>Company</label>
-                  <input type="text" className="form-control" defaultValue='' />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label>Designation</label>
-                  <input type="text" className="form-control" defaultValue='' />
-                </div>
-              </div>
-              <div className="col-md-12">
-                <div className="form-group">
-                  <label>Bio</label>
+                  <label className="editProfileLabels">Bio</label>
                   <textarea
-                    className="form-control"
+                    type="bio"
+                    className="editProfileFields"
                     rows={4}
                     defaultValue={""}
                   />
@@ -133,46 +77,12 @@ function EditProfile() {
             </div>
             <div>
                 <a type="button">Update</a>
-                <a type="button">Cancell</a>
-            </div>
-          </div>
-          <div
-            className="tab-pane fade"
-            id="password"
-            role="tabpanel"
-            aria-labelledby="password-tab"
-          >
-            <h3 className="mb-4">Password Settings</h3>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label>Old password</label>
-                  <input type="password" className="form-control" />
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label>New password</label>
-                  <input type="password" className="form-control" />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="form-group">
-                  <label>Confirm new password</label>
-                  <input type="password" className="form-control" />
-                </div>
-              </div>
-            </div>
-            <div>
-                <a type="button">Update</a>
-                <a type="button">Cancell</a>
+                <a type="button">Cancel</a>
             </div>
           </div>
           
         </div>
-      </div>
+      
     </div>
   </section>
 </>
