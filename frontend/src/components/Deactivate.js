@@ -1,77 +1,82 @@
-import React from 'react';
-import UserPool from '../UserPool';
-import axios from 'axios';
-import aws from 'aws-sdk';
+import axios from "axios";
+import aws from "aws-sdk";
+import { AccountContext } from "./Account";
+import React, { useEffect, useContext, useState } from "react";
 
 function Deactivate() {
-	var bp = require('./Path');
-	var _ud = localStorage.getItem('user_data');
-	var ud = JSON.parse(_ud);
-	// eslint-disable-next-line
-	var objectId = ud.id;
-	var firstName = ud.firstName;
-	var email = ud.email;
+  var bp = require("./Path");
+  var _ud = localStorage.getItem("user_data");
+  var ud = JSON.parse(_ud);
+  // eslint-disable-next-line
+  var objectId = ud.id;
 
-	const doDeactivate = async () => {
-		// AMAZON COGNITO - needs email/ username and userPoolId
-		const user = UserPool.getCurrentUser();
-		const userName = user.getUsername();
+  const { getSession } = useContext(AccountContext);
 
-		const deleteData = {
-			Username: userName,
-			UserPoolId: 'us-east-2_34v9YRHja',
-		};
+  const [accessToken, setAccessToken] = useState();
+  useEffect(() => {
+    getSession().then((user) => {
+      setAccessToken(user.accessToken.jwtToken); // get the current user's access token
+    });
+  }, []);
+  const cognito = new aws.CognitoIdentityServiceProvider({
+    region: "us-east-2",
+  });
 
-		// cognito.adminDeleteUser(deleteData, (err, data) => {
-		// 	if (err) {
-		// 		console.error(err);
-		// 		return;
-		// 	}
+  const doDeactivate = async () => {
+    var params = {
+      AccessToken: accessToken /* required */,
+    };
+    // Allowing user to delete himself
+    cognito.deleteUser(params, (err, data) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+    });
 
-		// 	// On success store user into DB
-		// 	const userToDeactivate = {
-		// 		userId: objectId,
-		// 	};
-		// 	var userToDeactivatejson = JSON.stringify(userToDeactivate);
+    // On success store user into DB
+    const userToDeactivate = {
+      userId: objectId,
+    };
+    var userToDeactivatejson = JSON.stringify(userToDeactivate);
 
-		// 	var config = {
-		// 		method: 'delete',
-		// 		url: bp.buildPath('api/deactivate/' + objectId),
-		// 		headers: {
-		// 			'Content-Type': 'application/json',
-		// 		},
-		// 		data: userToDeactivatejson,
-		// 	};
+    var config = {
+      method: "delete",
+      url: bp.buildPath("api/deactivate/" + objectId),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: userToDeactivatejson,
+    };
 
-		// 	axios(config)
-		// 		.then(function (response) {
-		// 			var res = response.data;
+    axios(config)
+      .then(function (response) {
+        var res = response.data;
 
-		// 			if (res.error) {
-		// 				console.log('error');
-		// 			} else {
-		// 				window.location.href = '/';
-		// 			}
-		// 		})
-		// 		.catch(function (error) {
-		// 			console.log(error);
-		// 		});
-		// });
-	};
+        if (res.error) {
+          console.log("error");
+        } else {
+          window.location.href = "/";
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
-	return (
-		<div id='deactivateDiv'>
-			<br />
-			<button
-				type='button'
-				id='deactivateButton'
-				class='buttons'
-				onClick={doDeactivate}
-			>
-				Deactivate
-			</button>
-		</div>
-	);
+  return (
+    <div id="deactivateDiv">
+      <br />
+      <button
+        type="button"
+        id="deactivateButton"
+        class="buttons"
+        onClick={doDeactivate}
+      >
+        Deactivate
+      </button>
+    </div>
+  );
 }
 
 export default Deactivate;
