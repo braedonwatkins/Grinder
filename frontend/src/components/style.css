@@ -254,7 +254,7 @@ main {
   border-color: #2ecc71;
 }
 
-.editProfileFields input[type="bio"]:focus{
+.editProfileFields textarea[type="bio"]:focus{
 
   border-color: #2ecc71;
 }
