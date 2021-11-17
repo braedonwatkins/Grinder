@@ -12,6 +12,7 @@ import nav from 'react-bootstrap/Nav';
 import { Account } from "./components/Account";
 import Register from './pages/RegisterPage';
 import EditProfile from './pages/EditProfilePage';
+import Friends from './pages/Friends';
 <script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin></script>
 
 
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route path="/eMail" exact>
             <Email />
+          </Route>
+          <Route path="/friends" exact>
+            <Friends />
           </Route>
           <Redirect to="/" />
         </Switch>  
