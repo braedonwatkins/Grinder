@@ -1,8 +1,11 @@
 exports.setApp = function (app, client) {
   //load user model
   const User = require("./models/user.js");
-  //load card model
-  // const Card = require("./models/card.js");
+
+  //load conversation and message models
+  const Conversation = require("./models/ConversationSchema");
+  const Message = require("./models/MessageSchema")
+  
   const bcrypt = require("bcrypt");
 
   //REGISTER

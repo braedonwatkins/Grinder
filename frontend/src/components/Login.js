@@ -102,7 +102,7 @@ function Login() {
           Register
         </a> */}
         <input type="button" value="Login" onClick={doLogin}/>
-        <input type ="button" value="Register" />
+        <a type ="button" value="Register" href="/register">Register</a>
       </div>
     </div>
   );

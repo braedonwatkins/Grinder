@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { CognitoUser } from "amazon-cognito-identity-js";
+import Pool from "../UserPool";
+
 
 function Login() {
     var loginName;
@@ -47,8 +50,55 @@ function Login() {
             return;
         }
     };
+    const [email, setEmail] = useState("");
+  const [stage, setStage] = useState(1); // 1 = email stage, 2 = code stage
 
-    return (
+  const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState("");
+
+  const getUser = () => {
+    return new CognitoUser({
+      Username: email.toLowerCase(),
+      Pool,
+    });
+  };
+
+  const sendCode = (event) => {
+    event.preventDefault();
+
+    getUser().forgotPassword({
+      onSuccess: (data) => {
+        console.log("onSucces: ", data);
+      },
+      onFailure: (err) => {
+        console.log("onFailure: ", err);
+      },
+      inputVerificationCode: (data) => {
+        console.log("Input code: ", data);
+        setStage(2);
+      },
+    });
+  };
+
+  const resetPassword = (event) => {
+    event.preventDefault();
+
+    if (password != confirmPassword) {
+      console.error("Passwords are not the same");
+      return;
+    }
+
+    getUser().confirmPassword(code, password, {
+      onSuccess: (data) => {
+        console.log("onSuccess: ", data);
+      },
+      onFailure: (err) => {
+        console.error("onFailure: ", err);
+      },
+    });
+  };
+    /*return (
 
         <div class="box">
             <div>
@@ -59,7 +109,48 @@ function Login() {
                 <a type="button" value="Submit" onClick={Submit}>Submit</a>
             </div>
          </div>
-    )
+    )*/
+    return (
+        <div class="box">
+          
+          <div class="form-box">
+          {stage == 1 && (
+            
+            <form onSubmit={sendCode}>
+              <h3>Please enter email</h3>
+              <input type="email" placeholder="Email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <button class="button" type="submit">Submit</button>
+            </form>
+          )}
+    
+          {stage == 2 && (
+            <form onSubmit={resetPassword}>
+              <h3>Please Fill out boxes</h3>
+              <input
+                type="email" placeholder="Verifcation Code"
+                value={code}
+                onChange={(event) => setCode(event.target.value)}
+              />
+              <input
+                type="email" placeholder="New Password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <input
+                type="email" placeholder="Comfirm Password"
+                value={confirmPassword}
+                onChange={(event) => setconfirmPassword(event.target.value)}
+              />
+              <button class="button" type="submit">Send</button>
+            </form>
+          )}
+          </div>
+        </div>
+      );
+    
 };
 
 export default Login;

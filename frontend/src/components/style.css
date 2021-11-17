@@ -125,6 +125,27 @@ input[type="button"]:hover {
   background: #2ecc71;
 }
 
+.button {
+  border: 100px;
+  background: none;
+  display: block;
+  margin: 15px auto;
+  text-align: center;
+  border: 1px solid #2ecc71;
+  padding: 10px 50px;
+  outline: none;
+  color: white;
+  border-radius: 25px;
+  transition: 0.25s;
+  cursor: pointer;
+  width: 200px;
+  text-decoration: none;
+}
+.button:hover {
+  background: #2ecc71;
+}
+
+
 .box h3 {
   color: white;
   text-transform: uppercase;
