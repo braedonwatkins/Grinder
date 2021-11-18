@@ -9,6 +9,7 @@ function Deactivate() {
   var ud = JSON.parse(_ud);
   // eslint-disable-next-line
   var objectId = ud.id;
+  var storage = require("../tokenStorage");
 
   const { getSession } = useContext(AccountContext);
 
@@ -45,6 +46,7 @@ function Deactivate() {
       url: bp.buildPath("api/deactivate/" + objectId),
       headers: {
         "Content-Type": "application/json",
+        Authorization: storage.retrieveToken()
       },
       data: userToDeactivatejson,
     };

@@ -12,6 +12,7 @@ function Friends() {
     var _ud = localStorage.getItem("user_data");
     var ud = JSON.parse(_ud);
     // eslint-disable-next-line
+    var storage = require("../tokenStorage");
 
     var userId = ud.id;
     useEffect(()=>{
@@ -20,6 +21,7 @@ function Friends() {
                 var config = {
                     method: "get",
                     url: bp.buildPath("api/getFriends/" + userId),
+                    headers: { Authorization: storage.retrieveToken() },
                 };
                 axios(config)
                     .then(function (response) {

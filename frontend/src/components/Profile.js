@@ -14,6 +14,8 @@ function Profile() {
     const [age, setAge] = useState('');
     const [bio, setBio] = useState('');
 
+    var storage = require("../tokenStorage");
+
     /*const searchCard = async event => {
         var resultText = '';
         try {
@@ -35,6 +37,7 @@ function Profile() {
     var config = {
         method: "get",
         url: bp.buildPath("api/getUser/"+userId),
+        headers: { Authorization: storage.retrieveToken() },
     };
     axios(config)
         .then(function (response)   {

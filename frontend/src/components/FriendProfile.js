@@ -9,6 +9,8 @@ export default function FriendProfile({ friendid }){
     const [Friend, setFriend] = useState("");
     const [Age, setAge] = useState("");
 
+    var storage = require("../tokenStorage");
+
    useEffect(() =>{
         const id = friendid;
         var bp = require("./Path");
@@ -18,7 +20,7 @@ export default function FriendProfile({ friendid }){
                 var config = {
                     method: "get",
                     url: bp.buildPath("api/getProfile/" + id),
-                    //Header
+                    headers: { Authorization: storage.retrieveToken() },
                 };
                 axios(config)
                     .then(function (response){

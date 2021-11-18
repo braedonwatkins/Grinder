@@ -1,4 +1,24 @@
+const jwt = require("jsonwebtoken");
+
 exports.setApp = function (app, client) {
+  const authenticateJWT = (req, res, next) => {
+    const authHeader = "Bearer " + req.headers.authorization;
+    console.log(authHeader);
+    if (authHeader) {
+      const token = authHeader.split(" ")[1];
+
+      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) {
+          return res.sendStatus(403);
+        }
+
+        req.user = user;
+        next();
+      });
+    } else {
+      res.sendStatus(401);
+    }
+  };
   //load user model
   const User = require("./models/user.js");
 
@@ -96,7 +116,7 @@ exports.setApp = function (app, client) {
   });
 
   // MATCH
-  app.put("/api/:curId/match", async (req, res) => {
+  app.put("/api/:curId/match", authenticateJWT, async (req, res) => {
     if (req.body.userId !== req.params.curId) {
       try {
         const currentUser = await User.findById(req.params.curId); // current user
@@ -118,7 +138,7 @@ exports.setApp = function (app, client) {
   });
 
   //UNMATCH
-  app.put("/api/:curId/unmatch", async (req, res) => {
+  app.put("/api/:curId/unmatch", authenticateJWT, async (req, res) => {
     if (req.body.userId !== req.params.curId) {
       try {
         const currentUser = await User.findById(req.params.curId); // current user
@@ -144,7 +164,7 @@ exports.setApp = function (app, client) {
   });
 
   // get user
-  app.get("/api/users/:id", async (req, res) => {
+  app.get("/api/users/:id", authenticateJWT, async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
       // In order to not bring password to client side put into internal doc
@@ -156,7 +176,7 @@ exports.setApp = function (app, client) {
   });
 
   // new conversation
-  app.post("/api/conversation", async (req, res, next) => {
+  app.post("/api/conversation", authenticateJWT, async (req, res, next) => {
     const newConversation = new Conversation({
       users: [req.body.senderId, req.body.recieverId],
     });
@@ -169,7 +189,7 @@ exports.setApp = function (app, client) {
   });
 
   // get convo of a user
-  app.get("/api/conversation/:userId", async (req, res, next) => {
+  app.get("/api/conversation/:userId", authenticateJWT, async (req, res, next) => {
     try {
       const conversation = await Conversation.find({
         users: { $in: [req.params.userId] },
@@ -181,7 +201,7 @@ exports.setApp = function (app, client) {
   });
 
   // add message
-  app.post("/api/message", async (req, res, next) => {
+  app.post("/api/message", authenticateJWT, async (req, res, next) => {
     const newMessage = new Message(req.body);
 
     try {
@@ -193,7 +213,7 @@ exports.setApp = function (app, client) {
   });
 
   // get messages
-  app.get("/api/message/:conversationId", async (req, res, next) => {
+  app.get("/api/message/:conversationId", authenticateJWT, async (req, res, next) => {
     try {
       const messages = await Message.find({
         conversationId: req.params.conversationId,
@@ -205,7 +225,7 @@ exports.setApp = function (app, client) {
   });
 
   // Deactivate Account
-  app.delete("/api/deactivate/:id", async (req, res) => {
+  app.delete("/api/deactivate/:id", authenticateJWT, async (req, res) => {
     if (req.body.userId === req.params.id) {
       try {
         await User.findByIdAndDelete(req.body.userId);
@@ -219,7 +239,7 @@ exports.setApp = function (app, client) {
   });
 
   //EDIT PROFILE
-  app.put("/api/edit/:id", async (req, res) => {
+  app.put("/api/edit/:id", authenticateJWT, async (req, res) => {
     try {
       const user = await User.findByIdAndUpdate(req.params.id, {
         $set: req.body,
@@ -232,7 +252,7 @@ exports.setApp = function (app, client) {
   });
 
   // GET USER
-  app.get("/api/getUser/:id", async (req, res) => {
+  app.get("/api/getUser/:id", authenticateJWT, async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
       const { Password, ...other } = user._doc;
@@ -243,7 +263,7 @@ exports.setApp = function (app, client) {
   });
 
   //GET PROFILE
-  app.get("/api/getProfile/:id", async (req, res) => {
+  app.get("/api/getProfile/:id", authenticateJWT, async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
       const { _id, FirstName, Password, Email, Friends, __v, ...other } =
@@ -255,7 +275,7 @@ exports.setApp = function (app, client) {
   });
 
   //GET FRIENDS
-  app.get("/api/getFriends/:id", async (req, res) => {
+  app.get("/api/getFriends/:id", authenticateJWT, async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
       const { _id, FirstName, Password, Email, Profile, __v, ...other } =
@@ -268,7 +288,7 @@ exports.setApp = function (app, client) {
 
   // GET LIKES
   // work in progress
-  app.get("/api/getLike/:id", async (req, res) => {
+  app.get("/api/getLike/:id", authenticateJWT, async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
       const { _id, FirstName, Friends, Password, Email, __v, Profile:Gamertag, ...favBuf } = user._doc;
