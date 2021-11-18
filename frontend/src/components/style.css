@@ -347,3 +347,9 @@ p {
 .profile .list{
   list-style-type: none;
 }
+
+
+/*Logo styling*/
+.logo{
+  margin-left: 20px;
+}
