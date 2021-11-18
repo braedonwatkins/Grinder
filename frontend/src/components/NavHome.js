@@ -7,7 +7,7 @@ import { SidebarData } from './Sidebar';
 import './Navbar.css';
 import './style.css';
 import { IconContext } from 'react-icons';
-import pic from '../components/picture/logo_light_small.png'
+import pic from '../components/picture/logo_NavHome.png'
 
 function NavHome() {
 
