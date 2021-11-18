@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { AccountContext } from "./Account";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import pic from '../components/picture/logo.png'
 
 function Login() {
   var loginName;

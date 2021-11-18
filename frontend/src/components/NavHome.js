@@ -7,6 +7,7 @@ import { SidebarData } from './Sidebar';
 import './Navbar.css';
 import './style.css';
 import { IconContext } from 'react-icons';
+import pic from '../components/picture/logo_light_small.png'
 
 function NavHome() {
 
@@ -34,6 +35,7 @@ function NavHome() {
                     <Link to='#' className='menu-button'>
                         <FaIcons.FaBars onClick={showSidebar} />
                     </Link>
+                    <img src={pic} alt="logo" className="logo"/>
                 </div>
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className='nav-menu-items' onClick={showSidebar}>
