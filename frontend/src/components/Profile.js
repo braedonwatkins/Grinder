@@ -65,7 +65,7 @@ function Profile() {
                 <h3>{gamerTag}</h3>
                 <h3>{age}</h3>
                 <div class="row-sm-12">
-                    <img src={profilePic === "" ? `${PF}noAvatar.png` : PF + profilepic} alt="profile pic"/>
+                    <img src={profilePic === "" ? `${PF}noAvatar.png` : PF + profilePic} alt="profile pic"/>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
