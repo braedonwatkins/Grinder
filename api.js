@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
+const path = require("path")
 
 exports.setApp = function (app, client) {
   const authenticateJWT = (req, res, next) => {
@@ -27,6 +29,20 @@ exports.setApp = function (app, client) {
   const Message = require("./models/MessageSchema")
   
   const bcrypt = require("bcrypt");
+
+  // multer to save img to folder
+  const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "Images");
+    },
+    filename: (req, file, cb) => {
+      console.log(file);
+      imgName = Date.now() + path.extname(file.originalname);
+      cb(null, imgName);
+    },
+  });
+
+  const upload = multer({ storage: storage });
 
   //REGISTER
   app.post("/api/signup", async (req, res, next) => {
@@ -297,4 +313,42 @@ exports.setApp = function (app, client) {
       res.status(500).json(err);
     }
   });
+
+  // Upload Image to server folder
+  // requires user's JWT token for authorization in the header
+  // file is sent as a multi part form data and name should be image
+  
+  app.post("/api/upload", authenticateJWT, upload.single("image"),
+
+    async (req, res, next) => {
+      try {
+        var jwt = require("jsonwebtoken");
+
+        var ud = jwt.decode(req.headers.authorization, { complete: true });
+        var id = ud.payload.id;
+
+        const user = await User.findById(id);
+
+        setTimeout(async () => {
+          const profile = await User.findByIdAndUpdate(id, {
+            $set: {
+              Profile: {
+                Gamertag: user.Profile.Gamertag,
+                ProfilePicture: imgName,
+                Favgenre: [...user.Profile.Favgenre],
+                Bio: user.Profile.Bio,
+                Age: user.Profile.Age,
+                _id: mongoose.Types.ObjectId(id),
+              },
+            },
+          });
+        }, 1000);
+
+        res.status(200).json("Upload image successfuly");
+      } catch (err) {
+        res.status(500).json(err);
+        console.log(err);
+      }
+    }
+  );
 };

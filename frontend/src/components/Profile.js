@@ -8,11 +8,13 @@ import pic from '../components/picture/Nezuko.png'
 
 
 function Profile() {
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     var bp = require("./Path");
     const [genreList, setGenreList] = useState([]);
     const [gamerTag, setGamerTag] = useState('');
     const [age, setAge] = useState('');
     const [bio, setBio] = useState('');
+    const [profilePic, setProfilePic] = useState('');
 
     var storage = require("../tokenStorage");
 
@@ -49,6 +51,7 @@ function Profile() {
                 setAge(res.Profile.Age);
                 setBio(res.Profile.Bio);
                 setGenreList(res.Profile.Favgenre);
+                setProfilePic(res.Profile.ProfilePicture);
             }
             
         })
@@ -62,7 +65,7 @@ function Profile() {
                 <h3>{gamerTag}</h3>
                 <h3>{age}</h3>
                 <div class="row-sm-12">
-                    <img src={pic} alt="profile pic"/>
+                    <img src={profilePic === "" ? `${PF}noAvatar.png` : PF + profilepic} alt="profile pic"/>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
