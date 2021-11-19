@@ -23,6 +23,8 @@ app.use(bodyParser.json());
 var api = require("./api");
 api.setApp(app, mongoose);
 
+app.use("/images", express.static(path.join(__dirname, "Images")));
+
 app.use((req, res, next) => 
 {
   res.setHeader('Access-Control-Allow-Origin', '*');
