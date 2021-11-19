@@ -23,33 +23,32 @@ function Friends() {
                     url: bp.buildPath("api/getFriends/" + userId),
                     headers: { Authorization: storage.retrieveToken() },
                 };
-                axios(config)
-                    .then(function (response) {
-                        var res = response.data;
-                        if (res.error) {
-                            alert("Error");
-                        } else {
-                            setFriendList(res.Friends);
-                        }
+                const resp = await axios(config);
+                setFriendList([...resp.data.Friends]);
+                //setFriendList(resp.Friends);
+                    // .then(function (response) {
+                    //     var res = response.data;
+                    //     if (res.error) {
+                    //         alert("Error");
+                    //     } else {
+                    //         setFriendList(res.Friends);
+                    //     }
             
-                    })
-                    .catch(function (error) {
-                        console.log("ERROR");
-                    });
+                    // })
+                    // .catch(function (error) {
+                    //     console.log("ERROR");
+                    // });
                 } catch (err){
                     console.log(err);
                 }
         };
         getFriend();
     },[userId]);
-    
-    
-     
     return (
         <div>
-               {friendList.map((c)=>(
-                   <Profile friendid={c}/>
-               ))}
+               {
+                   <Profile friendid={friendList}/> 
+               }
                
         </div>
     );

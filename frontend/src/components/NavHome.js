@@ -32,11 +32,15 @@ function NavHome() {
         <>
             <IconContext.Provider value={{ color: "#fff" }}>
                 <div className='navbar'>
+                    <div>
                     <Link to='#' className='menu-button'>
                         <FaIcons.FaBars onClick={showSidebar} />
+                        <img src={pic} alt="logo" className="logoNavHome"/>
                     </Link>
-                    <img src={pic} alt="logo" className="logoNavHome"/>
+                    </div>
+
                 </div>
+                
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className='nav-menu-items' onClick={showSidebar}>
                         <li className='navbar-toggle'>

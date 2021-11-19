@@ -25,10 +25,12 @@
     top: 0;
     left: -100%;
     transition: 850ms;
+    z-index: 999;
 }
 .nav-menu.active{
     left: 0;
     transition: 350ms;
+    z-index: 999;
 }
 .nav-text{
     display: flex;

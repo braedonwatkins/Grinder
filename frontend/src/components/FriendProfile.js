@@ -5,62 +5,86 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 import './card.css';
 
-export default function FriendProfile({ friendid }){
-    const [Friend, setFriend] = useState("");
-    const [Age, setAge] = useState("");
 
+export default function FriendProfile({ friendid }) {
+
+    const [Friend, setFriend] = useState([]);
+    const [Friends, setFriends] = useState([]);
     var storage = require("../tokenStorage");
 
-   useEffect(() =>{
-        const id = friendid;
+    useEffect(async () => {
+        var id, id2;
         var bp = require("./Path");
-        console.log(id);
-        const getFriend = async () =>{
-            try{
-                var config = {
-                    method: "get",
-                    url: bp.buildPath("api/getProfile/" + id),
-                    headers: { Authorization: storage.retrieveToken() },
-                };
-                axios(config)
-                    .then(function (response){
-                        var res = response.data;
-                        if(res.error){
-                            console.log(res.error);
-                        }else{
-                            setFriend(res.Profile.Gamertag);
-                            setAge(res.Profile.Age);
-                        }
-                    })
-            }catch(err){
-              console.log(err);  
-            }
-        };
-        getFriend();
-    },[friendid]);
-    return(
+        try {
+            id = await friendid;
+            id2 = await friendid;
+            //id2.map((c)=>{console.log(c)});
+        } catch (err) {
+            console.error(err);
+        }
 
         
-        <div className="clearfix">
-            <div className="row">
-                    <div className="col-md-4 animated fadeIn">
-                        <div className="card">
-                            <div className="card-body">
-                                <div className="avatar">
+        id2.map((c) => {
+            const getFriend = async () => {
+                try {
+                    var config = {
+                        method: "get",
+                        url: bp.buildPath("api/getProfile/" + c),
+                        headers: { Authorization: storage.retrieveToken() },
+                    };
+                    const resp = await axios(config);
+                    setFriend(old => [...old, resp.data.Profile.Gamertag]);
+                    let newElement = {
+                        tag: resp.data.Profile.Gamertag,
+                        age: resp.data.Profile.Age,
+                    }
+                    //console.log(newElement);
+                    setFriends(Friends =>[...Friends, newElement])
+                    //setFriend(resp.data.Profile.Gamertag);
+                    // .then(function (response){
+                    //     var res = response.data;
+                    //     if(res.error){
+                    //         console.log(res.error);
+                    //     }else{
+                    //         setFriend(res.Profile.Gamertag);
+                    //         setAge(res.Profile.Age);
+                    //     }
+                    // })
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            getFriend();
 
-                                </div>
-                                <h5 className="card-title">
-                                    {Friend}
-                                </h5>
-                                <p className="card-text">
-                                    {Age}
-                                    <br />
-                                    <span className="phone">{Friend}</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+        });
+
+    }, [friendid]);
+    console.log(Friends);
+    return (
+
+
+        <div className="clearfix">
+        <div className="row">
+          {Friends.map(data => (
+            <div className="col-md-4 animated fadeIn">
+              <div className="card">
+                <div className="card-body">
+                  <div className="avatar">
+                      
+                  </div>
+                  <h5 className="card-title">
+                  {data.tag}
+                  </h5>
+                  <p className="card-text">
+                      {data.age}
+                    <br />
+                    <span className="phone"></span>
+                  </p>
+                </div>
+              </div>
             </div>
-         </div>
+          ))}
+        </div>
+        </div>
     );
 }

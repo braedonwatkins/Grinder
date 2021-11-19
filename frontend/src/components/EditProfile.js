@@ -48,7 +48,19 @@ function EditProfile() {
               <div className="col-md-6 inputSpacing">
                 <div className="form-group">
                   <label className="editProfileLabels">Last Name</label>
-                  <input type="lastName" className="editProfileFields" defaultValue='' />
+                  <input type="firstName" className="editProfileFields" defaultValue='' />
+                </div>
+              </div>
+              <div className="col-md-6 inputSpacing">
+                <div className="form-group">
+                  <label className="editProfileLabels">Username</label>
+                  <input type="firstName" className="editProfileFields" defaultValue='' />
+                </div>
+              </div>
+              <div className="col-md-6 inputSpacing">
+                <div className="form-group">
+                  <label className="editProfileLabels">Profile Picture</label>
+                  <input type="file" className="editProfileFields" defaultValue='' />
                 </div>
               </div>
               <div className="col-md-6 inputSpacing">
