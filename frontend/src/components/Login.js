@@ -73,6 +73,7 @@ function Login() {
     <div class="box">
       <div>
         <h3>Please sign in</h3>
+        <p class="text-muted">Enter your login information</p>
         <div class="form-box">
           <input
             type="email"
