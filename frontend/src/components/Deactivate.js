@@ -43,10 +43,10 @@ function Deactivate() {
 
     var config = {
       method: "delete",
-      url: bp.buildPath("api/deactivate/" + objectId),
+      url: bp.buildPath("api/deactivate/"),
       headers: {
         "Content-Type": "application/json",
-        Authorization: storage.retrieveToken()
+        Authorization: storage.retrieveToken(),
       },
       data: userToDeactivatejson,
     };

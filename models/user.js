@@ -15,24 +15,24 @@ const UserSchema = new Schema({
   Friends: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      default:[]
+      default: [],
     },
   ],
   Profile: {
     type: mongoose.Schema.Types.Object,
     default: ProfileSchema,
   },
-  Likes:[
+  Likes: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      default:[]
-    }
+      default: [],
+    },
   ],
-  Dislikes:[
+  Dislikes: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      default:[]
-    }
-  ]
+      default: [],
+    },
+  ],
 });
 module.exports = User = mongoose.model("User", UserSchema, "Users");

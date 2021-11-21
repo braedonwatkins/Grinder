@@ -24,7 +24,7 @@ body {
   }
 }
 
-input[type="button"]{
+input[type="button"] {
   border: 100px;
   background: none;
   display: block;
@@ -45,7 +45,6 @@ input[type="button"]:hover {
   background: #2ecc71;
 }
 
-
 .box {
   width: 100%;
   max-width: 400px;
@@ -64,6 +63,7 @@ input[type="button"]:hover {
 
 .box input[type="firstname"],
 .box input[type="lastname"],
+.box input[type="text"],
 .box input[type="email"],
 .box input[type="password"] {
   border: 0;
@@ -81,6 +81,7 @@ input[type="button"]:hover {
 }
 .box input[type="firstname"]:focus,
 .box input[type="lastname"]:focus,
+.box input[type="text"],
 .box input[type="email"]:focus,
 .box input[type="password"]:focus {
   width: 300px;
@@ -146,7 +147,6 @@ input[type="button"]:hover {
   background: #2ecc71;
 }
 
-
 .box h3 {
   color: white;
   text-transform: uppercase;
@@ -172,8 +172,8 @@ main {
   background-color: #242121;
   color: white;
   width: 100%;
-  min-width: 500px;   
-  padding: 5px;     
+  min-width: 500px;
+  padding: 5px;
   display: flex;
   border-radius: 25px;
   text-align: center;
@@ -208,15 +208,14 @@ main {
   padding: auto;
   text-align: center;
   display: block;
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
 .inputSpacing {
   margin: auto;
 }
 
-
-.editProfileFields{
+.editProfileFields {
   border-radius: 25px;
   max-width: 100%;
   width: auto;
@@ -224,13 +223,13 @@ main {
   padding: auto;
   text-align: center;
   display: block;
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
 .editProfileFields input[type="gamertag"],
 .editProfileFields input[type="lastName"],
 .editProfileFields input[type="email"],
-.editProfileFields input[type="age"]{
+.editProfileFields input[type="age"] {
   border: 0;
   background: none;
   display: flex;
@@ -247,7 +246,7 @@ main {
   white-space: normal;
 }
 
-.editProfileFields textarea[type="bio"]{
+.editProfileFields textarea[type="bio"] {
   border: 0;
   background: none;
   margin: 10px auto;
@@ -262,162 +261,151 @@ main {
   transition: 0.25s;
   display: flex;
   padding-top: 10px;
-
 }
 
 .editProfileFields input[type="gamertag"]:focus,
 .editProfileFields input[type="lastName"]:focus,
 .editProfileFields input[type="email"]:focus,
-.editProfileFields input[type="age"]:focus{
-  
+.editProfileFields input[type="age"]:focus {
   width: 400px;
-  
+
   border-color: #2ecc71;
 }
 
-
-.editProfileFields textarea[type="bio"]:focus{
-
+.editProfileFields textarea[type="bio"]:focus {
   width: 650px;
-  border-color: #2ecc71; 
+  border-color: #2ecc71;
   transition: 0.25s;
 }
-
 
 .editProfileFields:focus-within {
   z-index: 2;
 }
 
-.editProfileLabels{
-  font-size: 15pt ;
+.editProfileLabels {
+  font-size: 15pt;
   padding: 5px;
 }
 
-.editProfileHeader{
-  font-size: 30pt ;
+.editProfileHeader {
+  font-size: 30pt;
 }
 
-.editProfileGamertag{
-  font-size: 20pt ;
+.editProfileGamertag {
+  font-size: 20pt;
 }
 
-
-#file{
+#file {
   width: 100px;
   padding: 10px;
 }
 
-input[type='file'] {
+input[type="file"] {
   color: transparent;
 }
 
-
 /*Profile styling*/
 .profile {
-    width: 100%;
-    max-width: 50%;
-    padding: 15px;
-    margin: auto;
-    background-color: #242121;
-    border-radius: 30px;
-    transition: .75s;
+  width: 100%;
+  max-width: 50%;
+  padding: 15px;
+  margin: auto;
+  background-color: #242121;
+  border-radius: 30px;
+  transition: 0.75s;
 }
-.profile .name{
-    text-align: center;
-    color: white;
-    text-transform: uppercase;
-    font-weight: 0;
+.profile .name {
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 0;
 }
 .profile img {
-    border-radius: 10px;
-    width: 40%;
-    margin-left: 20px;
-    margin-bottom: 20px;
+  border-radius: 10px;
+  width: 40%;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }
 .profile .text {
-    border: 2px solid #3498db;
-    background:rgb(71, 66, 66);
-    border-radius: 20px;
-    height: 200px;
-    padding-top: 15px;
-    padding-left: 15px;
-    padding-right: 10px;
-    text-align: left;
-    font-size: 15px;
-    overflow-x:auto;
+  border: 2px solid #3498db;
+  background: rgb(71, 66, 66);
+  border-radius: 20px;
+  height: 200px;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 10px;
+  text-align: left;
+  font-size: 15px;
+  overflow-x: auto;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 10px;
   height: 10px;
-
 }
-::-webkit-scrollbar-button:end{height: 20px;}
-::-webkit-scrollbar-button:start{height: 20px;}
+::-webkit-scrollbar-button:end {
+  height: 20px;
+}
+::-webkit-scrollbar-button:start {
+  height: 20px;
+}
 
-::-webkit-scrollbar-thumb:hover{
+::-webkit-scrollbar-thumb:hover {
   background: #3498db;
   border-radius: 50px;
 }
 .profile input[type="button"] {
-    border: 100px;
-    background: none;
-    display: block;
-    margin: 15px auto;
-    text-align: center;
-    border: 1px solid #2ecc71;
-    padding: 10px 50px;
-    outline: none;
-    color: white;
-    border-radius: 25px;
-    transition: .25s;
-    cursor: pointer;
-    width: 150px;
+  border: 100px;
+  background: none;
+  display: block;
+  margin: 15px auto;
+  text-align: center;
+  border: 1px solid #2ecc71;
+  padding: 10px 50px;
+  outline: none;
+  color: white;
+  border-radius: 25px;
+  transition: 0.25s;
+  cursor: pointer;
+  width: 150px;
 }
 .profile input[type="button"]:hover {
-    background: #2ecc71
+  background: #2ecc71;
 }
 
 p {
-    padding: 0;
-    line-height: 10px;
-    color: red;
+  padding: 0;
+  line-height: 10px;
+  color: red;
 }
 
-.mutedText{
+.mutedText {
   font-size: 12pt;
 }
 
-.profile p{
+.profile p {
   color: white;
 }
 
-.profile .list{
+.profile .list {
   list-style-type: none;
 }
-
-
 
 .friendsBox {
   background-color: #242121;
   height: auto;
   width: 100%;
-  min-width: 500px;  
-  max-width: 800px; 
-  padding: 5px;     
+  min-width: 500px;
+  max-width: 800px;
+  padding: 5px;
   border-radius: 25px;
-  
 }
 
-
-
-
-
 /*Logo styling*/
-.logo{
+.logo {
   margin-left: 20px;
 }
 
-.logoNavHome{
+.logoNavHome {
   margin-left: 50px;
 }

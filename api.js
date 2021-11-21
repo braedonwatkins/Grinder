@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
-const path = require("path")
+const path = require("path");
 
 exports.setApp = function (app, client) {
   const authenticateJWT = (req, res, next) => {
@@ -26,8 +26,8 @@ exports.setApp = function (app, client) {
 
   //load conversation and message models
   const Conversation = require("./models/ConversationSchema");
-  const Message = require("./models/MessageSchema")
-  
+  const Message = require("./models/MessageSchema");
+
   const bcrypt = require("bcrypt");
 
   // multer to save img to folder
@@ -65,7 +65,7 @@ exports.setApp = function (app, client) {
     }
 
     const newUser = new User({
-      Gamertag: req.body.gamertag,
+      Profile: { Gamertag: req.body.gamertag },
       Email: req.body.email,
       Password: hashedPassword,
     });
@@ -189,16 +189,20 @@ exports.setApp = function (app, client) {
   });
 
   // get convo of a user
-  app.get("/api/conversation/:userId", authenticateJWT, async (req, res, next) => {
-    try {
-      const conversation = await Conversation.find({
-        users: { $in: [req.params.userId] },
-      });
-      res.status(200).json(conversation);
-    } catch (err) {
-      res.status(500).json(err);
+  app.get(
+    "/api/conversation/:userId",
+    authenticateJWT,
+    async (req, res, next) => {
+      try {
+        const conversation = await Conversation.find({
+          users: { $in: [req.params.userId] },
+        });
+        res.status(200).json(conversation);
+      } catch (err) {
+        res.status(500).json(err);
+      }
     }
-  });
+  );
 
   // add message
   app.post("/api/message", authenticateJWT, async (req, res, next) => {
@@ -213,21 +217,25 @@ exports.setApp = function (app, client) {
   });
 
   // get messages
-  app.get("/api/message/:conversationId", authenticateJWT, async (req, res, next) => {
-    try {
-      const messages = await Message.find({
-        conversationId: req.params.conversationId,
-      });
-      res.status(200).json(messages);
-    } catch (err) {
-      res.status(500).json(err);
+  app.get(
+    "/api/message/:conversationId",
+    authenticateJWT,
+    async (req, res, next) => {
+      try {
+        const messages = await Message.find({
+          conversationId: req.params.conversationId,
+        });
+        res.status(200).json(messages);
+      } catch (err) {
+        res.status(500).json(err);
+      }
     }
-  });
+  );
 
   // Deactivate Account
   app.delete("/api/deactivate/", authenticateJWT, async (req, res) => {
     var ud = jwt.decode(req.headers.authorization, { complete: true });
-      var id = ud.payload.id;
+    var id = ud.payload.id;
     if (req.body.userId === id) {
       try {
         await User.findByIdAndDelete(req.body.userId);
@@ -243,7 +251,7 @@ exports.setApp = function (app, client) {
   //EDIT PROFILE
   app.put("/api/edit/", authenticateJWT, async (req, res) => {
     var ud = jwt.decode(req.headers.authorization, { complete: true });
-      var id = ud.payload.id;
+    var id = ud.payload.id;
     try {
       const user = await User.findByIdAndUpdate(id, {
         $set: req.body,
@@ -258,7 +266,7 @@ exports.setApp = function (app, client) {
   // GET USER
   app.get("/api/getUser/", authenticateJWT, async (req, res) => {
     var ud = jwt.decode(req.headers.authorization, { complete: true });
-      var id = ud.payload.id;
+    var id = ud.payload.id;
     try {
       const user = await User.findById(id);
       const { Password, ...other } = user._doc;
@@ -271,7 +279,7 @@ exports.setApp = function (app, client) {
   //GET PROFILE
   app.get("/api/getProfile/", authenticateJWT, async (req, res) => {
     var ud = jwt.decode(req.headers.authorization, { complete: true });
-      var id = ud.payload.id;
+    var id = ud.payload.id;
     try {
       const user = await User.findById(id);
       const { _id, FirstName, Password, Email, Friends, __v, ...other } =
@@ -285,7 +293,7 @@ exports.setApp = function (app, client) {
   //GET FRIENDS
   app.get("/api/getFriends/", authenticateJWT, async (req, res) => {
     var ud = jwt.decode(req.headers.authorization, { complete: true });
-      var id = ud.payload.id;
+    var id = ud.payload.id;
     try {
       const user = await User.findById(id);
       const { _id, FirstName, Password, Email, Profile, __v, ...other } =
@@ -353,14 +361,14 @@ exports.setApp = function (app, client) {
     }
   });
 
-  // gets an array of ALL user objs 
+  // gets an array of ALL user objs
   app.get("/api/getNextUser/", authenticateJWT, async (req, res) => {
     try {
       var ud = jwt.decode(req.headers.authorization, { complete: true });
       var id = ud.payload.id;
       const currentUser = await User.findById(id);
       !currentUser && res.status(404).json("User not found");
-  
+
       try {
         const nextUser = await User.aggregate([
           {
@@ -382,8 +390,11 @@ exports.setApp = function (app, client) {
   // Upload Image to server folder
   // requires user's JWT token for authorization in the header
   // file is sent as a multi part form data and name should be image
-  
-  app.post("/api/upload", authenticateJWT, upload.single("image"),
+
+  app.post(
+    "/api/upload",
+    authenticateJWT,
+    upload.single("image"),
 
     async (req, res, next) => {
       try {
@@ -416,4 +427,21 @@ exports.setApp = function (app, client) {
       }
     }
   );
+
+  // Reset Password
+  app.post("/api/resetpassword", async (req, res, next) => {
+    const user = await User.findOne({ Email: req.body.email });
+    const id = user.id;
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    try {
+      const user = await User.findByIdAndUpdate(id, {
+        Password: hashedPassword,
+      });
+
+      res.status(200).json("Password updated successfully");
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  });
 };
