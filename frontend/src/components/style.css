@@ -169,10 +169,11 @@ main {
   background-color: #242121;
   color: white;
   width: 100%;
-  min-width: 800px;   
-  padding: auto;     
+  min-width: 500px;   
+  padding: 5px;     
   display: flex;
   border-radius: 25px;
+  text-align: center;
 }
 
 .editProfileBox a[type="button"] {
@@ -197,35 +198,50 @@ main {
 
 .editProfileContainer {
   border-radius: 25px;
-  max-width: 50%;
-  width: auto;
+  max-width: 100%;
+  width: 800px;
+  min-width: 500px;
   margin: auto;
   padding: auto;
   text-align: center;
-  display: flex;
+  display: block;
+  white-space:nowrap;
 }
 
 .inputSpacing {
   margin: auto;
 }
 
-.editProfileFields input[type="firstName"],
+
+.editProfileFields{
+  border-radius: 25px;
+  max-width: 100%;
+  width: auto;
+  margin: auto;
+  padding: auto;
+  text-align: center;
+  display: block;
+  white-space:nowrap;
+}
+
+.editProfileFields input[type="gamertag"],
 .editProfileFields input[type="lastName"],
 .editProfileFields input[type="email"],
 .editProfileFields input[type="age"]{
   border: 0;
   background: none;
-  display: block;
-  margin: 10px auto;
+  display: flex;
+  margin: 0 auto;
   text-align: center;
   border: 2px solid #3498db;
   padding: 10px 10px;
   width: 350px;
-  min-width: 100px;
+  min-width: 350px;
   outline: none;
   color: white;
   border-radius: 24px;
   transition: 0.25s;
+  white-space: normal;
 }
 
 .editProfileFields textarea[type="bio"]{
@@ -235,7 +251,7 @@ main {
   text-align: left;
   border: 2px solid #3498db;
   padding: 10px;
-  width: 700px;
+  width: 600px;
 
   outline: none;
   color: white;
@@ -246,28 +262,50 @@ main {
 
 }
 
-.editProfileFields input[type="firstName"]:focus,
+.editProfileFields input[type="gamertag"]:focus,
 .editProfileFields input[type="lastName"]:focus,
 .editProfileFields input[type="email"]:focus,
 .editProfileFields input[type="age"]:focus{
   
+  width: 400px;
+  
   border-color: #2ecc71;
 }
+
 
 .editProfileFields textarea[type="bio"]:focus{
 
-  border-color: #2ecc71;
+  width: 650px;
+  border-color: #2ecc71; 
+  transition: 0.25s;
 }
+
 
 .editProfileFields:focus-within {
   z-index: 2;
 }
 
 .editProfileLabels{
-  font-size: 13pt ;
+  font-size: 15pt ;
+}
+
+.editProfileHeader{
+  font-size: 30pt ;
+}
+
+.editProfileGamertag{
+  font-size: 20pt ;
 }
 
 
+#file{
+  width: 100px;
+  padding: 10px;
+}
+
+input[type='file'] {
+  color: transparent;
+}
 
 
 /*Profile styling*/

@@ -30,59 +30,43 @@ function EditProfile() {
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
   />
-  <section className="py-5 my-2 editProfileContainer">
-    <div className="container editProfileContainer">
-      
-      <div className="editProfileBox" class="editProfileBox">          
-            
-          <div className="editProfileFields p-4 p-md-5 editProfileFields" id="v-pills-tabContent">
-            <h3 className="">Edit Profile</h3>
-            <h4 className="">Test Name </h4>
+  <section className="editProfileContainer py-5 my-2 ">
+    <div className="container box editProfileContainer">
+      <div className="editProfileBox box" class="editProfileBox">          
+          <div className="editProfileFields" id="v-pills-tabContent">
+            <h3 className="editProfileHeader">Edit Profile</h3>
+            <br/>
+            <h4 className="editProfileGamertag">Test Name </h4>
+            <br/>
             <div className="row">
-              <div className="col-md-6 inputSpacing">
-                <div className="form-group">
-                  <label className="editProfileLabels">First Name</label>
-                  <input type="firstName" className="editProfileFields" defaultValue='' />
-                </div>
+              <div className="col-md-10 inputSpacing">
+                  <label className="editProfileLabels">Gamertag</label>
+                  <input type="gamertag" className="editProfileFields" defaultValue='' />
               </div>
-              <div className="col-md-6 inputSpacing">
-                <div className="form-group">
-                  <label className="editProfileLabels">Last Name</label>
-                  <input type="firstName" className="editProfileFields" defaultValue='' />
-                </div>
+              <div className="col-md-10 inputSpacing">
+                  <label className="editProfileLabels">Age</label>
+                  <input type="age" className="editProfileFields" defaultValue='' />
               </div>
-              <div className="col-md-6 inputSpacing">
-                <div className="form-group">
-                  <label className="editProfileLabels">Username</label>
-                  <input type="firstName" className="editProfileFields" defaultValue='' />
-                </div>
-              </div>
-              <div className="col-md-6 inputSpacing">
-                <div className="form-group">
-                  <label className="editProfileLabels">Profile Picture</label>
-                  <input type="file" className="editProfileFields" defaultValue='' />
-                </div>
-              </div>
-              <div className="col-md-6 inputSpacing">
+              <div className="col-md-10 inputSpacing">
                 <div className="form-group">
                   <label className="editProfileLabels">Email</label>
                   <input type="email" className="editProfileFields" defaultValue='' />
                 </div>
               </div>
-              <div className="col-md-6 inputSpacing">
-                <div className="form-group">
-                  <label className="editProfileLabels">Age</label>
-                  <input type="age" className="editProfileFields" defaultValue='' />
-                </div>
+              <div className="col-md-10 inputSpacing">
+                  <label className="editProfileLabels">Profile Picture</label>
+                  <br/>
+                  <input type="file" className="editProfileLabels" id="file" aria-label="File browser example"/>
+
               </div>
               <div className="col-md-11 inputSpacing">
-                <div className="form-group">
-                  <label className="editProfileLabels">Bio</label>
+                <div className="form-group editProfileLabels">
+                  <label className="" rows="10" cols="100">Bio</label>
                   <textarea
                     type="bio"
                     className="editProfileFields"
                     rows={4}
-                    defaultValue={""}
+                    
                   />
                 </div>
               </div>
