@@ -20,15 +20,15 @@ function NavHome() {
 
     var _ud = localStorage.getItem("user_data");
     var ud = JSON.parse(_ud);
+    
     // eslint-disable-next-line
     var userId = ud.id;
 
     const doLogout = (event) => {
         event.preventDefault();
-        console.log(userId);
 
         localStorage.removeItem("user_data");
-        logout;
+        logout();
         window.location.href = "/";
     };
 

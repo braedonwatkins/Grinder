@@ -63,9 +63,10 @@ const Account = (props) => {
   };
 
   const logout = () => {
-    console.log("LOGGING OUT");
+    
     const user = Pool.getCurrentUser();
     if (user) {
+      console.log("USER LOGGING OUT");
       user.signOut();
     }
   };
