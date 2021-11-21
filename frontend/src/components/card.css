@@ -12,16 +12,23 @@
   }
   
   .card {
-    padding: 30px;
-    width: 400px;
+    padding: 0px;
+    padding-bottom: 20px;
+    width: 200px;
+    height: 80px;
+    background-color: rgb(251, 247, 255);
     border: solid 1px rgba(0, 0, 0, 0.08);
     cursor: pointer;
+    transition: 0.25s
   }
   .card:hover {
     box-shadow: 0 0 12px 3px rgba(0, 0, 0, 0.08);
+    color: rgb(245, 224, 255);
+    background-color: rgb(162, 114, 206);
+    border: solid 1px rgba(229, 184, 255, 0.2);
   }
   .card-title {
-    margin-top: 20px;
+    margin-top: 5px;
   }
   .card-text {
     font-size: 14px;

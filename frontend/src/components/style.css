@@ -397,6 +397,22 @@ p {
 }
 
 
+
+.friendsBox {
+  background-color: #242121;
+  height: auto;
+  width: 100%;
+  min-width: 500px;  
+  max-width: 800px; 
+  padding: 5px;     
+  border-radius: 25px;
+  
+}
+
+
+
+
+
 /*Logo styling*/
 .logo{
   margin-left: 20px;

@@ -45,12 +45,20 @@ function Friends() {
         getFriend();
     },[userId]);
     return (
-        <div>
-               {
-                   <Profile friendid={friendList}/> 
-               }
-               
-        </div>
+        <section className="editProfileContainer py-5 my-2 ">
+            <div className="container box editProfileContainer friendsBox">
+                <h3 className="editProfileHeader">Friends List</h3>
+                <div className="friendsBox">
+                
+                    
+                    <div>
+                    {
+                        <Profile friendid={friendList}/> 
+                    }
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
 export default Friends;
