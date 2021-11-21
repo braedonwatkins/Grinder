@@ -117,7 +117,8 @@ function Login() {
           {stage == 1 && (
             
             <form onSubmit={sendCode}>
-              <h3>Please enter email</h3>
+              <h3>Password Reset</h3>
+              <p class="text-muted">Please enter your account email</p>
               <input type="email" placeholder="Email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
@@ -129,6 +130,7 @@ function Login() {
           {stage == 2 && (
             <form onSubmit={resetPassword}>
               <h3>Please Fill out boxes</h3>
+              <p class="text-muted">If you did not receive an email try again</p>
               <input
                 type="email" placeholder="Verifcation Code"
                 value={code}
@@ -144,7 +146,7 @@ function Login() {
                 value={confirmPassword}
                 onChange={(event) => setconfirmPassword(event.target.value)}
               />
-              <button class="button" type="submit">Send</button>
+              <button class="button" type="submit">Submit</button>
             </form>
           )}
           </div>

@@ -31,7 +31,7 @@ input[type="button"]{
   margin: 15px auto;
   text-align: center;
   border: 1px solid #2ecc71;
-  padding: 10px 50px;
+  padding: 12px 50px;
   outline: none;
   color: white;
   border-radius: 25px;
@@ -48,7 +48,8 @@ input[type="button"]:hover {
 
 .box {
   width: 100%;
-  max-width: 330px;
+  max-width: 400px;
+
   padding: 15px;
   margin: auto;
   background-color: #242121;
@@ -68,7 +69,7 @@ input[type="button"]:hover {
   border: 0;
   background: none;
   display: block;
-  margin: 20px auto;
+  margin: 25px auto;
   text-align: center;
   border: 2px solid #3498db;
   padding: 10px 10px;
@@ -92,7 +93,7 @@ input[type="button"]:hover {
   margin: 15px auto;
   text-align: center;
   border: 1px solid #2ecc71;
-  padding: 10px 50px;
+  padding: 12px 50px;
   outline: none;
   color: white;
   border-radius: 25px;
@@ -150,6 +151,8 @@ input[type="button"]:hover {
   color: white;
   text-transform: uppercase;
   font-weight: 0;
+  font-size: 23pt;
+  padding: 10px;
 }
 .forgot {
   text-decoration: underline;
@@ -375,6 +378,8 @@ input[type='file'] {
 }
 
 p {
+    padding: 0;
+    line-height: 10px;
     color: red;
 }
 
