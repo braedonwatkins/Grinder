@@ -290,6 +290,7 @@ main {
 
 .editProfileLabels{
   font-size: 15pt ;
+  padding: 5px;
 }
 
 .editProfileHeader{
@@ -381,6 +382,10 @@ p {
     padding: 0;
     line-height: 10px;
     color: red;
+}
+
+.mutedText{
+  font-size: 12pt;
 }
 
 .profile p{

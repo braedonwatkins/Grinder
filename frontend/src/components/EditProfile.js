@@ -70,6 +70,18 @@ function EditProfile() {
                   />
                 </div>
               </div>
+              <div className="col-md-11 inputSpacing">
+                <div className="form-group editProfileLabels">
+                  <label className="" rows="10" cols="100">Genres</label>
+                  <p class="text-muted mutedText">Enter genres with commas in between (ex. FPS, MOBA, Fighter, ...)</p>
+                  <textarea
+                    type="bio"
+                    className="editProfileFields"
+                    rows={4}
+                    
+                  />
+                </div>
+              </div>
             </div>
             <div>
                 <a type="button">Update</a>
