@@ -4,13 +4,6 @@ const ProfileSchema = require("./profile");
 
 //Create Schema
 const UserSchema = new Schema({
-  FirstName: {
-    type: String,
-    required: true,
-  },
-  LastName: {
-    type: String,
-  },
   Email: {
     type: String,
     required: true,
@@ -22,11 +15,24 @@ const UserSchema = new Schema({
   Friends: [
     {
       type: mongoose.Schema.Types.ObjectId,
+      default:[]
     },
   ],
   Profile: {
     type: mongoose.Schema.Types.Object,
     default: ProfileSchema,
   },
+  Likes:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      default:[]
+    }
+  ],
+  Dislikes:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      default:[]
+    }
+  ]
 });
 module.exports = User = mongoose.model("User", UserSchema, "Users");

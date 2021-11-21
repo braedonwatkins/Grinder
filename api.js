@@ -65,8 +65,7 @@ exports.setApp = function (app, client) {
     }
 
     const newUser = new User({
-      FirstName: req.body.firstname,
-      LastName: req.body.lastname,
+      Gamertag: req.body.gamertag,
       Email: req.body.email,
       Password: hashedPassword,
     });
@@ -112,13 +111,10 @@ exports.setApp = function (app, client) {
 
       if (user.length !== 0) {
         id = user.id;
-        fn = user.FirstName;
-        console.log(id);
-        console.log(fn);
 
         try {
           const token = require("./createJWT.js");
-          ret = token.createToken(fn, id);
+          ret = token.createToken(id);
         } catch (e) {
           ret = { error: e.message };
         }
@@ -179,18 +175,6 @@ exports.setApp = function (app, client) {
     }
   });
 
-  // get user
-  app.get("/api/users/:id", authenticateJWT, async (req, res) => {
-    try {
-      const user = await User.findById(req.params.id);
-      // In order to not bring password to client side put into internal doc
-      const { Password, ...other } = user._doc;
-      res.status(200).json(other);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
-
   // new conversation
   app.post("/api/conversation", authenticateJWT, async (req, res, next) => {
     const newConversation = new Conversation({
@@ -241,8 +225,10 @@ exports.setApp = function (app, client) {
   });
 
   // Deactivate Account
-  app.delete("/api/deactivate/:id", authenticateJWT, async (req, res) => {
-    if (req.body.userId === req.params.id) {
+  app.delete("/api/deactivate/", authenticateJWT, async (req, res) => {
+    var ud = jwt.decode(req.headers.authorization, { complete: true });
+      var id = ud.payload.id;
+    if (req.body.userId === id) {
       try {
         await User.findByIdAndDelete(req.body.userId);
         res.status(200).json("Account deactivated");
@@ -255,9 +241,11 @@ exports.setApp = function (app, client) {
   });
 
   //EDIT PROFILE
-  app.put("/api/edit/:id", authenticateJWT, async (req, res) => {
+  app.put("/api/edit/", authenticateJWT, async (req, res) => {
+    var ud = jwt.decode(req.headers.authorization, { complete: true });
+      var id = ud.payload.id;
     try {
-      const user = await User.findByIdAndUpdate(req.params.id, {
+      const user = await User.findByIdAndUpdate(id, {
         $set: req.body,
       });
 
@@ -268,9 +256,11 @@ exports.setApp = function (app, client) {
   });
 
   // GET USER
-  app.get("/api/getUser/:id", authenticateJWT, async (req, res) => {
+  app.get("/api/getUser/", authenticateJWT, async (req, res) => {
+    var ud = jwt.decode(req.headers.authorization, { complete: true });
+      var id = ud.payload.id;
     try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(id);
       const { Password, ...other } = user._doc;
       res.status(200).json(other);
     } catch (err) {
@@ -279,9 +269,11 @@ exports.setApp = function (app, client) {
   });
 
   //GET PROFILE
-  app.get("/api/getProfile/:id", authenticateJWT, async (req, res) => {
+  app.get("/api/getProfile/", authenticateJWT, async (req, res) => {
+    var ud = jwt.decode(req.headers.authorization, { complete: true });
+      var id = ud.payload.id;
     try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(id);
       const { _id, FirstName, Password, Email, Friends, __v, ...other } =
         user._doc;
       res.status(200).json(other);
@@ -291,9 +283,11 @@ exports.setApp = function (app, client) {
   });
 
   //GET FRIENDS
-  app.get("/api/getFriends/:id", authenticateJWT, async (req, res) => {
+  app.get("/api/getFriends/", authenticateJWT, async (req, res) => {
+    var ud = jwt.decode(req.headers.authorization, { complete: true });
+      var id = ud.payload.id;
     try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(id);
       const { _id, FirstName, Password, Email, Profile, __v, ...other } =
         user._doc;
       res.status(200).json(other);
@@ -302,15 +296,86 @@ exports.setApp = function (app, client) {
     }
   });
 
-  // GET LIKES
-  // work in progress
-  app.get("/api/getLike/:id", authenticateJWT, async (req, res) => {
+  // Like user and check for matches
+  app.put("/api/like/", authenticateJWT, async (req, res) => {
     try {
-      const user = await User.findById(req.params.id);
-      const { _id, FirstName, Friends, Password, Email, __v, Profile:Gamertag, ...favBuf } = user._doc;
-      res.status(200).json(favBuf);
+      var ud = jwt.decode(req.headers.authorization, { complete: true });
+      var id = ud.payload.id;
+      console.log(id);
+      const currentUser = await User.findById(id);
+      const user = await User.findById(req.body.userId);
+
+      if (
+        !currentUser.Likes.includes(req.body.userId) &&
+        !currentUser.Friends.includes(req.body.userId)
+      ) {
+        await currentUser.updateOne({
+          $push: { Likes: req.body.userId },
+        });
+        if (user.Likes.includes(id)) {
+          await currentUser.updateOne({
+            $push: { Friends: user._id },
+            $pull: { Likes: user._id },
+          });
+          await user.updateOne({
+            $push: { Friends: currentUser._id },
+            $pull: { Likes: currentUser._id },
+          });
+          res.status(200).json("You guys liked each other and are now friends");
+        } else {
+          res.status(200).json("You liked a user");
+        }
+      } else {
+        res.status(403).json("Already Friend/liked this user");
+      }
     } catch (err) {
       res.status(500).json(err);
+    }
+  });
+
+  // dislikes a user
+  app.put("/api/dislike/", authenticateJWT, async (req, res) => {
+    try {
+      var ud = jwt.decode(req.headers.authorization, { complete: true });
+      var id = ud.payload.id;
+      const currentUser = await User.findById(id);
+
+      if (!currentUser.Dislikes.includes(req.body.userId)) {
+        await currentUser.updateOne({
+          $push: { Dislikes: req.body.userId },
+        });
+        res.status(200).json("You disliked a user");
+      } else {
+        res.status(403).json("Already matched/disliked this user");
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+  // gets an array of ALL user objs 
+  app.get("/api/getNextUser/", authenticateJWT, async (req, res) => {
+    try {
+      var ud = jwt.decode(req.headers.authorization, { complete: true });
+      var id = ud.payload.id;
+      const currentUser = await User.findById(id);
+      !currentUser && res.status(404).json("User not found");
+  
+      try {
+        const nextUser = await User.aggregate([
+          {
+            $match: {
+              Dislikes: { $not: { $in: [currentUser._id] } },
+              Friends: { $not: { $in: [currentUser._id] } },
+            },
+          },
+        ]);
+        res.status(200).json(nextUser);
+      } catch (error) {
+        res.status(400).json("User not found");
+      }
+    } catch (error) {
+      res.status(500).json(error);
     }
   });
 

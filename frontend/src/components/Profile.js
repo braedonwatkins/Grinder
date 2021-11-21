@@ -35,10 +35,10 @@ function Profile() {
     var _ud = localStorage.getItem("user_data");
     var ud = JSON.parse(_ud);
     // eslint-disable-next-line
-    var userId = ud.id;
+   
     var config = {
         method: "get",
-        url: bp.buildPath("api/getUser/"+userId),
+        url: bp.buildPath("api/getUser/"),
         headers: { Authorization: storage.retrieveToken() },
     };
     axios(config)

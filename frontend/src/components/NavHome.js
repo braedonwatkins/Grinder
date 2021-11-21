@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
@@ -8,12 +8,15 @@ import './Navbar.css';
 import './style.css';
 import { IconContext } from 'react-icons';
 import pic from '../components/picture/logo_NavHome.png'
+import { AccountContext } from './Account';
 
 function NavHome() {
 
     const [sidebar, setSidebar] = useState(false)
 
     const showSidebar = () => setSidebar(!sidebar)
+
+    const { logout } = useContext(AccountContext);
 
     var _ud = localStorage.getItem("user_data");
     var ud = JSON.parse(_ud);
@@ -25,6 +28,7 @@ function NavHome() {
         console.log(userId);
 
         localStorage.removeItem("user_data");
+        logout;
         window.location.href = "/";
     };
 

@@ -1,14 +1,14 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-exports.createToken = function (fn, id) {
-  return _createToken(fn, id);
+exports.createToken = function (id) {
+  return _createToken(id);
 };
 
-_createToken = function (fn, id) {
+_createToken = function (id) {
   try {
     const expiration = new Date();
-    const user = { id: id, firstName: fn };
+    const user = { id: id };
 
     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
 
@@ -48,7 +48,7 @@ exports.refresh = function (token) {
   var ud = jwt.decode(token, { complete: true });
 
   var id = ud.payload.id;
-  var firstName = ud.payload.firstName;
+  
 
-  return _createToken(firstName, id);
+  return _createToken(id);
 };

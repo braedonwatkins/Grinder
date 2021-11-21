@@ -6,7 +6,7 @@ const ProfileSchema = new Schema({
   // Gamertag / Username
   Gamertag: {
     type: String,
-    default: "",
+    required: true,
   },
   ProfilePicture: {
     type: String,

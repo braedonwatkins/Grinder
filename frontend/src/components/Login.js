@@ -17,9 +17,7 @@ function Login() {
 
   const doLogin = async (event) => {
     event.preventDefault();
-    console.log(
-      loginName.value + " " + loginPassword.value + " about to authenticate"
-    );
+    
     authenticate(loginName.value, loginPassword.value)
       .then((data) => {
         console.log("Logged in!", data);
@@ -48,12 +46,9 @@ function Login() {
               // Store objectId and firstname in application for future use
               var ud = jwt.decode(storage.retrieveToken(), { complete: true });
               var id = ud.payload.id;
-              var firstName = ud.payload.firstName;
-              var lastName = ud.payload.lastName;
+              
 
               var user = {
-                firstName: firstName,
-                lastName: lastName,
                 id: id,
               };
               localStorage.setItem("user_data", JSON.stringify(user));
@@ -78,7 +73,7 @@ function Login() {
           <input
             type="email"
             id="loginName"
-            placeholder="Email / Username"
+            placeholder="Email"
             ref={(c) => (loginName = c)}
           />
         </div>

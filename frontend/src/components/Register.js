@@ -6,7 +6,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const Register = () => {
   const [name, setName] = useState("");
-  const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -35,8 +34,7 @@ const Register = () => {
 
       // On success store user into DB
       const newUser = {
-        firstname: name,
-        lastname: lastname,
+        gamertag: name,
         email: email,
         password: password,
       };
@@ -56,7 +54,7 @@ const Register = () => {
           var res = response.data;
 
           if (res.error) {
-            window.location.href = "/";
+            console.error(res.error);
           } else {
             window.location.href = "/";
           }
@@ -103,18 +101,10 @@ const Register = () => {
           <div class="form-box">
             <input
               type="firstname"
-              placeholder="Enter First Name"
+              placeholder="Enter Gamertag"
               value={name}
               onChange={(event) => setName(event.target.value)}
             ></input>
-          </div>
-          <div class="form-floating">
-            <input
-              type="lastname"
-              placeholder="Enter Last Name (Optional)"
-              value={lastname}
-              onChange={(event) => setLastName(event.target.value)}
-            />
           </div>
           <div class="form-box">
             <input
