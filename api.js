@@ -264,11 +264,10 @@ exports.setApp = function (app, client) {
   });
 
   // GET USER
-  app.get("/api/getUser/", authenticateJWT, async (req, res) => {
-    var ud = jwt.decode(req.headers.authorization, { complete: true });
-    var id = ud.payload.id;
+  app.get("/api/getUser/:id", authenticateJWT, async (req, res) => {
+    
     try {
-      const user = await User.findById(id);
+      const user = await User.findById(req.params.id);
       const { Password, ...other } = user._doc;
       res.status(200).json(other);
     } catch (err) {
@@ -277,11 +276,10 @@ exports.setApp = function (app, client) {
   });
 
   //GET PROFILE
-  app.get("/api/getProfile/", authenticateJWT, async (req, res) => {
-    var ud = jwt.decode(req.headers.authorization, { complete: true });
-    var id = ud.payload.id;
+  app.get("/api/getProfile/:id", authenticateJWT, async (req, res) => {
+    
     try {
-      const user = await User.findById(id);
+      const user = await User.findById(req.params.id);
       const { _id, FirstName, Password, Email, Friends, __v, ...other } =
         user._doc;
       res.status(200).json(other);
@@ -291,11 +289,10 @@ exports.setApp = function (app, client) {
   });
 
   //GET FRIENDS
-  app.get("/api/getFriends/", authenticateJWT, async (req, res) => {
-    var ud = jwt.decode(req.headers.authorization, { complete: true });
-    var id = ud.payload.id;
+  app.get("/api/getFriends/:id", authenticateJWT, async (req, res) => {
+    
     try {
-      const user = await User.findById(id);
+      const user = await User.findById(req.params.id);
       const { _id, FirstName, Password, Email, Profile, __v, ...other } =
         user._doc;
       res.status(200).json(other);
