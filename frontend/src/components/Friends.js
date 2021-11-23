@@ -24,20 +24,8 @@ function Friends() {
                     headers: { Authorization: storage.retrieveToken() },
                 };
                 const resp = await axios(config);
+                console.log(resp.data.Friends);
                 setFriendList([...resp.data.Friends]);
-                //setFriendList(resp.Friends);
-                    // .then(function (response) {
-                    //     var res = response.data;
-                    //     if (res.error) {
-                    //         alert("Error");
-                    //     } else {
-                    //         setFriendList(res.Friends);
-                    //     }
-            
-                    // })
-                    // .catch(function (error) {
-                    //     console.log("ERROR");
-                    // });
                 } catch (err){
                     console.log(err);
                 }
@@ -49,8 +37,6 @@ function Friends() {
             <div className="container box editProfileContainer friendsBox">
                 <h3 className="editProfileHeader">Friends List</h3>
                 <div className="friendsBox">
-                
-                    
                     <div>
                     {
                         <Profile friendid={friendList}/> 

@@ -1,17 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import { IoLogOutOutline } from "react-icons/io5";
+import { IoLogOutOutline, IoAlertCircleSharp } from "react-icons/io5";
 import { SidebarData } from './Sidebar';
 import './Navbar.css';
 import './style.css';
 import { IconContext } from 'react-icons';
 import pic from '../components/picture/logo_NavHome.png'
 import { AccountContext } from './Account';
+import aws from "aws-sdk";
+import axios from "axios";
 
 function NavHome() {
 
+    var bp = require("./Path");
+  var _ud = localStorage.getItem("user_data");
+  var ud = JSON.parse(_ud);
+  // eslint-disable-next-line
+  var objectId = ud.id;
+  var storage = require("../tokenStorage");
     const [sidebar, setSidebar] = useState(false)
 
     const showSidebar = () => setSidebar(!sidebar)
@@ -31,6 +39,67 @@ function NavHome() {
         logout();
         window.location.href = "/";
     };
+    const { getSession } = useContext(AccountContext);
+
+  const [accessToken, setAccessToken] = useState();
+  useEffect(() => {
+    getSession().then((user) => {
+      setAccessToken(user.accessToken.jwtToken); // get the current user's access token
+    });
+  }, []);
+  const cognito = new aws.CognitoIdentityServiceProvider({
+    region: "us-east-2",
+  });
+
+  const doDeactivate = async () => {
+    var result = window.confirm("Want to delete?");
+    if(result){
+        var params = {
+            AccessToken: accessToken /* required */,
+          };
+          // Allowing user to delete himself
+          cognito.deleteUser(params, (err, data) => {
+            if (err) {
+              console.error(err);
+              return;
+            }
+          });
+      
+          // On success store user into DB
+          const userToDeactivate = {
+            userId: objectId,
+          };
+          var userToDeactivatejson = JSON.stringify(userToDeactivate);
+      
+          var config = {
+            method: "delete",
+            url: bp.buildPath("api/deactivate/"),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: storage.retrieveToken(),
+            },
+            data: userToDeactivatejson,
+          };
+      
+          axios(config)
+            .then(function (response) {
+              var res = response.data;
+      
+              if (res.error) {
+                console.log("error");
+              } else {
+                window.location.href = "/";
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+    }else{
+        
+        alert("Account not deleted");
+    }
+    
+  };
 
     return (
         <>
@@ -66,6 +135,12 @@ function NavHome() {
                             <Link onClick={doLogout}>
                                 <IoLogOutOutline />
                                 <span>Logout</span>
+                            </Link>
+                        </li>
+                        <li className="nav-text">
+                            <Link onClick={doDeactivate} to="/home">
+                                <IoAlertCircleSharp />
+                                <span>Deactivate</span>
                             </Link>
                         </li>
                     </ul>

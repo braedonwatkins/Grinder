@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AccountContext } from "./Account";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,63 +16,50 @@ function Profile() {
 
   var storage = require("../tokenStorage");
 
-  /*const searchCard = async event => {
-        var resultText = '';
-        try {
-            for (var i = 0; i < genre.length; i++) {
-                resultText += genre[i];
-                resultText += '\n';
-            }
-            //setGenreList(resultText);
-
-        }
-        catch (e) {
-            alert(e.toString());
-        }
-    };*/
   var _ud = localStorage.getItem("user_data");
   var ud = JSON.parse(_ud);
-  // eslint-disable-next-line
+  var userId = ud.id;
 
-  var config = {
-    method: "get",
-    url: bp.buildPath("api/getUser/"),
-    headers: { Authorization: storage.retrieveToken() },
-  };
-  axios(config)
-    .then(function (response) {
-      var res = response.data;
-      if (res.error) {
-        alert("HI");
-      } else {
-        setGamerTag(res.Profile.Gamertag);
-        setAge(res.Profile.Age);
-        setBio(res.Profile.Bio);
-        //setGenreList(res.Profile.Favgenre);
-        setProfilePic(res.Profile.ProfilePicture);
-      }
-    })
-    .catch(function (error) {
-      console.log("ERROR");
-    });
+    useEffect(()=>{
+        const getUser = async() =>{
+            try{
+                var config = {
+                    method: "get",
+                    url: bp.buildPath("api/getUser/" + userId),
+                    headers: { Authorization: storage.retrieveToken() },
+                };
+                const resp = await axios(config);
+                console.log(resp);
+                setGamerTag(resp.data.Profile.Gamertag);
+                setGenreList(resp.data.Profile.Favgenre);
+                setAge(resp.data.Profile.Age);
+                setBio(resp.data.Profile.Bio);
+                setProfilePic(resp.data.Profile.ProfilePicture);
+                console.log(resp.data.Profile.ProfilePicture);
+                } catch (err){
+                    console.log(err);
+                }
+        };
+        getUser();
+    },[userId]);
 
   return (
     <div class="profile">
       <div class="name">
-        <h3>{gamerTag}</h3>
+        <div class="tag">
+        <h3 >{gamerTag}</h3>
         <h3>{age}</h3>
+        </div>
+        
         <div class="row-sm-12">
-          <img
-            src={profilePic === "" ? `${PF}noAvatar.png` : PF + profilePic}
-            alt="profile pic"
-          />
+          <img className="conversationImg" src={profilePic === "" ? `${PF}noAvatar.png`: PF + profilePic}  />
         </div>
         <div class="row">
           <div class="col-sm-6">
             <p>Genre</p>
             <ul class="text list">
               {genreList.map((item) => {
-                return <li>{item}</li>;
+                return <li key ={item}>{item}</li>;
               })}
             </ul>
           </div>
@@ -87,3 +74,4 @@ function Profile() {
 }
 
 export default Profile;
+//{profilePic ? <img src={`data:image/png;base64,${profilePic}`} class="profilepic"/>: ''}

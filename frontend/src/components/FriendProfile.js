@@ -11,6 +11,7 @@ export default function FriendProfile({ friendid }) {
     const [Friend, setFriend] = useState([]);
     const [Friends, setFriends] = useState([]);
     var storage = require("../tokenStorage");
+    var fs = require('fs');
 
     useEffect(async () => {
         var id, id2;
@@ -37,8 +38,10 @@ export default function FriendProfile({ friendid }) {
                     let newElement = {
                         tag: resp.data.Profile.Gamertag,
                         age: resp.data.Profile.Age,
+                        pic: resp.data.Profile.ProfilePicture,
                     }
-                    //console.log(newElement);
+                    
+                    //console.log(friendid);
                     setFriends(Friends =>[...Friends, newElement])
                     //setFriend(resp.data.Profile.Gamertag);
                     // .then(function (response){
@@ -70,7 +73,7 @@ export default function FriendProfile({ friendid }) {
               <div className="card">
                 <div className="card-body">
                   <div className="avatar">
-                      
+                    {data.pic ? <img src={`data:image/png;base64,${data.pic}`} class="profilepic"/>: ''}
                   </div>
                   <h5 className="card-title">
                   {data.tag}

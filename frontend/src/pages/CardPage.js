@@ -9,7 +9,6 @@ const CardPage = () => {
       <NavHome />
       <br />
       <Profile />
-      <Deactivate />
     </div>
   );
 };

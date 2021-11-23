@@ -60,7 +60,9 @@ function Login() {
           });
       })
       .catch((err) => {
+        setMessage("Incorrect Email or Password");
         console.error("Failed to login", err);
+        setTimeout(function () {setMessage("");}, 3000);
       });
   };
 
