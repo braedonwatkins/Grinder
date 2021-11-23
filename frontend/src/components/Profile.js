@@ -52,7 +52,7 @@ function Profile() {
         </div>
         
         <div class="row-sm-12">
-          <img className="conversationImg" src={profilePic === "" ? `${PF}noAvatar.png`: PF + profilePic}  />
+          {profilePic ? <img src={`data:image/png;base64,${profilePic}`} class="profilepic"/>: ''}
         </div>
         <div class="row">
           <div class="col-sm-6">
