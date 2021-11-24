@@ -65,7 +65,13 @@ exports.setApp = function (app, client) {
     }
 
     const newUser = new User({
-      Profile: { Gamertag: req.body.gamertag },
+      Profile: { 
+        Gamertag: req.body.gamertag,
+        ProfilePicture: "",
+        Favgenre:[],
+        Bio:"",
+        Age: 0
+       },
       Email: req.body.email,
       Password: hashedPassword,
     });
