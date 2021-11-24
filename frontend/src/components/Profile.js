@@ -6,6 +6,17 @@ import "./style.css";
 import pic from "../components/picture/Nezuko.png";
 
 function Profile() {
+  const { getSession } = useContext(AccountContext);
+  useEffect(() => {
+    getSession()
+      .then(() => {
+        // user is logged in
+      })
+      .catch(() => {
+        window.location.href = "/";
+      });
+  }, []);
+  
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   var bp = require("./Path");
   const [genreList, setGenreList] = useState([]);

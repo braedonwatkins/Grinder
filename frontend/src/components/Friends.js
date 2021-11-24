@@ -7,6 +7,17 @@ import pic from '../components/picture/Nezuko.png'
 import Profile from './FriendProfile';
 
 function Friends() {
+    const { getSession } = useContext(AccountContext);
+    useEffect(() => {
+        getSession()
+        .then(() => {
+            // user is logged in
+        })
+        .catch(() => {
+            window.location.href = "/";
+        });
+    }, []);
+    
     var bp = require("./Path");
     const [friendList, setFriendList] = useState([]);
     var _ud = localStorage.getItem("user_data");

@@ -4,9 +4,20 @@ import React, { useState, useContext, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 import './card.css';
+import { AccountContext } from './Account';
 
 
 export default function FriendProfile({ friendid }) {
+  const { getSession } = useContext(AccountContext);
+  useEffect(() => {
+    getSession()
+      .then(() => {
+        // user is logged in
+      })
+      .catch(() => {
+        window.location.href = "/";
+      });
+  }, []);
 
     const [Friend, setFriend] = useState([]);
     const [Friends, setFriends] = useState([]);

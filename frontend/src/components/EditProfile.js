@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AccountContext } from './Account';
 import UserPool from "../UserPool";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function EditProfile() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const { getSession } = useContext(AccountContext);
+  useEffect(() => {
+    getSession()
+      .then(() => {
+        // user is logged in
+      })
+      .catch(() => {
+        window.location.href = "/";
+      });
+  }, []);
+
     return (
         <>
   <meta charSet="utf-8" />
