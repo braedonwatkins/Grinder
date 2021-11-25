@@ -3,21 +3,73 @@ import { AccountContext } from './Account';
 import UserPool from "../UserPool";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { resolve } from "path";
+import { rejects } from "assert";
+var fs = require('fs');
+
 
 function EditProfile() {
+  const [genreList, setGenreList] = useState([]);
+  const [gamerTag, setGamerTag] = useState("");
+  const [age, setAge] = useState("");
+  const [bio, setBio] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
+  const [file, setFile] = useState(null);
   const { getSession } = useContext(AccountContext);
+
+  var bp = require("./Path");
+  var storage = require("../tokenStorage");
+
   useEffect(() => {
     getSession()
       .then(() => {
         // user is logged in
+        setLoggedIn(true);
       })
       .catch(() => {
         window.location.href = "/";
       });
   }, []);
 
-    return (
+  var _ud = localStorage.getItem("user_data");
+  var ud = JSON.parse(_ud);
+  var userId = ud.id;
+
+    useEffect(()=>{
+        const getUser = async() =>{
+            try{
+                var config = {
+                    method: "get",
+                    url: bp.buildPath("api/getUser/" + userId),
+                    headers: { Authorization: storage.retrieveToken() },
+                };
+                const resp = await axios(config);
+                // console.log(resp);
+                setGamerTag(resp.data.Profile.Gamertag);
+                setGenreList(resp.data.Profile.Favgenre);
+                setAge(resp.data.Profile.Age);
+                setBio(resp.data.Profile.Bio);
+                setProfilePic(resp.data.Profile.ProfilePicture);
+                // console.log(resp.data.Profile.ProfilePicture);
+                } catch (err){
+                    console.log(err);
+                }
+        };
+        getUser();
+    },[userId]);
+    
+    const onSubmit = async (e) => {
+      // Sending updated information to DB
+
+      if(file) {
+        console.log(file);
+        console.log(file.name);
+        console.log(file.size);    
+      } 
+    }
+
+    return (loggedIn &&
         <>
   <meta charSet="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -53,22 +105,23 @@ function EditProfile() {
             <div className="row">
               <div className="col-md-10 inputSpacing">
                   <label className="editProfileLabels">Gamertag</label>
-                  <input type="gamertag" className="editProfileFields" defaultValue='' />
+                  <input type="gamertag" className="editProfileFields" defaultValue={ gamerTag } />
               </div>
               <div className="col-md-10 inputSpacing">
                   <label className="editProfileLabels">Age</label>
-                  <input type="age" className="editProfileFields" defaultValue='' />
+                  <input type="age" className="editProfileFields" defaultValue={age} />
               </div>
-              <div className="col-md-10 inputSpacing">
+              {/* dont want to edit email */}
+              {/* <div className="col-md-10 inputSpacing">
                 <div className="form-group">
                   <label className="editProfileLabels">Email</label>
                   <input type="email" className="editProfileFields" defaultValue='' />
                 </div>
-              </div>
+              </div> */}
               <div className="col-md-10 inputSpacing">
                   <label className="editProfileLabels">Profile Picture</label>
                   <br/>
-                  <input type="file" className="editProfileLabels" id="file" aria-label="File browser example"/>
+                  <input type="file" className="editProfileLabels" id="file" onChange ={(f)=> setFile(f.target.files[0])} aria-label="File browser example"/>
 
               </div>
               <div className="col-md-11 inputSpacing">
@@ -78,7 +131,7 @@ function EditProfile() {
                     type="bio"
                     className="editProfileFields"
                     rows={4}
-                    
+                    defaultValue = {bio}
                   />
                 </div>
               </div>
@@ -90,13 +143,14 @@ function EditProfile() {
                     type="bio"
                     className="editProfileFields"
                     rows={4}
+                    defaultValue = {genreList}
                     
                   />
                 </div>
               </div>
             </div>
             <div>
-                <a type="button">Update</a>
+                <a type="button" onClick = {onSubmit()}>Update</a>
                 <a type="button">Cancel</a>
             </div>
           </div>
