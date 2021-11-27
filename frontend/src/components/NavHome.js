@@ -108,10 +108,12 @@ function NavHome() {
                     <div>
                     <Link to='#' className='menu-button'>
                         <FaIcons.FaBars onClick={showSidebar} />
-                        <img src={pic} alt="logo" className="logoNavHome"/>
+                        
                     </Link>
+                    <a href="home">
+                        <img src={pic} alt="logo" onclick="location.href = '/home';" className="logoNavHome"/>
+                        </a>
                     </div>
-
                 </div>
                 
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>

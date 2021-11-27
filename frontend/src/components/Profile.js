@@ -59,7 +59,7 @@ function Profile() {
       <div class="name">
         <div class="tag">
         <h3 >{gamerTag}</h3>
-        <h3>{age}</h3>
+        <h3>Age: {age}</h3>
         </div>
         <div class="row-sm-12">
           {profilePic ? <img src={`data:image/png;base64,${profilePic}`} class="profilepic"/>: ''}
@@ -75,7 +75,7 @@ function Profile() {
           </div>
           
           <div class="col-sm-6">
-            <p>BIO</p>
+            <p>Bio</p>
             <div class="text">
               {bio}
             </div>

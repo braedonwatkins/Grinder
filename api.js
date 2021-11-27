@@ -263,7 +263,7 @@ exports.setApp = function (app, client) {
         $set: req.body,
       });
 
-      res.status(200).json("profile updated successfully");
+      res.status(200).json("Profile updated successfully!");
     } catch (err) {
       return res.status(500).json(err);
     }

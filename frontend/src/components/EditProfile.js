@@ -144,6 +144,16 @@ function EditProfile() {
               {profilePic ? <img src={`data:image/png;base64,${profilePic}`} class="profilepic" /> : ''}
               <br />
               <div className="row">
+              <div className="col-md-10 inputSpacing">
+                  <br />
+                  <label className="editProfileLabels">Profile Picture(PNG)</label>
+                  <br />
+                  <input type="file" className="editProfileLabels" id="file" accept=".png" onChange={onUploadFile} aria-label="File browser example" />
+                  <div> <ImageResize
+                    imageToResize={imageToResize}
+                    onImageResized={(resizedImage) => setResizedImage(resizedImage)}
+                  /></div>
+                </div>
                 <div className="col-md-10 inputSpacing">
                   <label className="editProfileLabels">Gamertag</label>
                   <input type="gamertag" className="editProfileFields" defaultValue={gamerTag} onChange={(c) => setGamerTag(c.target.value)} />
@@ -159,15 +169,7 @@ function EditProfile() {
                   <input type="email" className="editProfileFields" defaultValue='' />
                 </div>
               </div> */}
-                <div className="col-md-10 inputSpacing">
-                  <label className="editProfileLabels">Profile Picture(PNG)</label>
-                  <br />
-                  <input type="file" className="editProfileLabels" id="file" accept=".png" onChange={onUploadFile} aria-label="File browser example" />
-                  <div> <ImageResize
-                    imageToResize={imageToResize}
-                    onImageResized={(resizedImage) => setResizedImage(resizedImage)}
-                  /></div>
-                </div>
+                
                 <div className="col-md-11 inputSpacing">
                   <div className="form-group editProfileLabels">
                     <label className="" rows="10" cols="100">Bio</label>
@@ -175,24 +177,14 @@ function EditProfile() {
                       type="bio"
                       className="editProfileFields"
                       rows={4}
+                      cols={4}
                       defaultValue={bio}
+                      wrap="hard"
                       onChange={(c) => setBio(c.target.value)}
                     />
                   </div>
                 </div>
-                <div className="col-md-11 inputSpacing">
-                  <div className="form-group editProfileLabels">
-                    <label className="" rows="10" cols="100">Genres</label>
-                    <p class="text-muted mutedText">Enter genres with commas in between (ex. FPS, MOBA, Fighter, ...)</p>
-                    <textarea
-                      type="bio"
-                      className="editProfileFields"
-                      rows={4}
-                      defaultValue={genreList}
 
-                    />
-                  </div>
-                </div>
               </div>
               <div>
                 <h5>Select your genre(s):</h5>

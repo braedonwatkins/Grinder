@@ -149,7 +149,6 @@ input[type="button"]:hover {
 
 .box h3 {
   color: white;
-  text-transform: uppercase;
   font-weight: 0;
   font-size: 23pt;
   padding: 10px;
@@ -261,6 +260,7 @@ main {
   transition: 0.25s;
   display: flex;
   padding-top: 10px;
+  white-space: pre-wrap
 }
 
 .editProfileFields input[type="gamertag"]:focus,
@@ -317,7 +317,6 @@ input[type="file"] {
 .profile .name {
   text-align: center;
   color: white;
-  text-transform: uppercase;
   font-weight: 0;
 }
 @media screen and (max-width: 650px) {
@@ -347,6 +346,7 @@ input[type="file"] {
   padding-bottom: 5px;
   font-size: 15px;
   text-align: left;
+  text-transform: none;
 }
 
 
@@ -389,6 +389,7 @@ p {
   font-size: small;
   line-height: 10px;
   color: red;
+  font-size: 15pt;
 }
 
 .mutedText {
@@ -397,6 +398,7 @@ p {
 
 .profile p {
   color: white;
+  text-transform:none;
 }
 
 .profile .list {
