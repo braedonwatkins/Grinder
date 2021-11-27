@@ -35,10 +35,9 @@ function Friends() {
                     headers: { Authorization: storage.retrieveToken() },
                 };
                 const resp = await axios(config);
-                console.log(resp.data.Friends);
                 setFriendList([...resp.data.Friends]);
                 } catch (err){
-                    console.log(err);
+                    console.error(err);
                 }
         };
         getFriend();

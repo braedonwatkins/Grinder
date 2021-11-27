@@ -9,6 +9,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [err, setErr] = useState("");
 
   var bp = require("./Path");
 
@@ -23,12 +24,17 @@ const Register = () => {
     event.preventDefault();
     if (confirm !== password) {
       console.error("Passwords do not match");
+      setErr("Passwords do not match");
+      return;
+    }
+    if(name === "" || email === "" || confirm ==="" || password ===""){
+      setErr("Please fill out form");
       return;
     }
     // AMAZON COGNITO - needs email, password , only attribute needed is name
     UserPool.signUp(email, password, att, null, (err, data) => {
       if (err) {
-        console.error(err);
+        setErr(err.message);
         return;
       }
 
@@ -52,45 +58,14 @@ const Register = () => {
       axios(config)
         .then(function (response) {
           var res = response.data;
-
-          if (res.error) {
-            console.error(res.error);
-          } else {
-            window.location.href = "/";
-          }
+          window.location.href = "/";
+          
         })
         .catch(function (error) {
           console.log(error);
         });
     });
   };
-
-  // return (
-  // <div class="box">
-  //   <div>
-  //     <h3>Create an Account</h3>
-  //     <form onSubmit={onSubmit}>
-  //       <label htmlFor="name">Firstname</label>
-  //       <input
-  //         value={name}
-  //         onChange={(event) => setName(event.target.value)}
-  //       ></input>
-  //       <label htmlFor="email">Email</label>
-  //       <input
-  //         value={email}
-  //         onChange={(event) => setEmail(event.target.value)}
-  //       ></input>
-  //       <label htmlFor="password">Password</label>
-  //       <input
-  //         value={password}
-  //         onChange={(event) => setPassword(event.target.value)}
-  //       ></input>
-
-  //       <button type="submit">Register</button>
-  //     </form>
-  //   </div>
-  // </div>
-  // );
 
   return (
     <div class="box">
@@ -109,7 +84,7 @@ const Register = () => {
           <div class="form-box">
             <input
               type="email"
-              placeholder="Enter Email Address"
+              placeholder="Enter Username(email) Address"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             ></input>
@@ -134,7 +109,8 @@ const Register = () => {
             Already have an account?
           </a>
         </form>
-
+        <br />
+        <p>{err}</p>
         <input type="button" value="Register" onClick={onSubmit}></input>
       </div>
     </div>

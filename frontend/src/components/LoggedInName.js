@@ -10,8 +10,6 @@ function LoggedInName() {
 
   const doLogout = (event) => {
     event.preventDefault();
-    console.log(userId);
-
     localStorage.removeItem("user_data");
     window.location.href = "/";
   };

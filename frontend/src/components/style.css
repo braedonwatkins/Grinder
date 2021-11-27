@@ -385,6 +385,7 @@ input[type="file"] {
 
 p {
   padding: 0;
+  font-size: small;
   line-height: 10px;
   color: red;
 }

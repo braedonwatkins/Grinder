@@ -28,9 +28,7 @@ export default function FriendProfile({ friendid }) {
         var id, id2;
         var bp = require("./Path");
         try {
-            id = await friendid;
             id2 = await friendid;
-            //id2.map((c)=>{console.log(c)});
         } catch (err) {
             console.error(err);
         }
@@ -52,20 +50,10 @@ export default function FriendProfile({ friendid }) {
                         pic: resp.data.Profile.ProfilePicture,
                     }
                     
-                    //console.log(friendid);
                     setFriends(Friends =>[...Friends, newElement])
-                    //setFriend(resp.data.Profile.Gamertag);
-                    // .then(function (response){
-                    //     var res = response.data;
-                    //     if(res.error){
-                    //         console.log(res.error);
-                    //     }else{
-                    //         setFriend(res.Profile.Gamertag);
-                    //         setAge(res.Profile.Age);
-                    //     }
-                    // })
+
                 } catch (err) {
-                    console.log(err);
+                    console.error(err);
                 }
             };
             getFriend();
@@ -73,7 +61,6 @@ export default function FriendProfile({ friendid }) {
         });
 
     }, [friendid]);
-    console.log(Friends);
     return (
 
 

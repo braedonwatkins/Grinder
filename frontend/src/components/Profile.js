@@ -40,28 +40,27 @@ function Profile() {
                     headers: { Authorization: storage.retrieveToken() },
                 };
                 const resp = await axios(config);
-                console.log(resp);
+
                 setGamerTag(resp.data.Profile.Gamertag);
                 setGenreList(resp.data.Profile.Favgenre);
                 setAge(resp.data.Profile.Age);
                 setBio(resp.data.Profile.Bio);
                 setProfilePic(resp.data.Profile.ProfilePicture);
-                console.log(resp.data.Profile.ProfilePicture);
+
                 } catch (err){
                     console.log(err);
                 }
         };
         getUser();
     },[userId]);
-
-  return (
+    
+    return (
     <div class="profile">
       <div class="name">
         <div class="tag">
         <h3 >{gamerTag}</h3>
         <h3>{age}</h3>
         </div>
-        
         <div class="row-sm-12">
           {profilePic ? <img src={`data:image/png;base64,${profilePic}`} class="profilepic"/>: ''}
         </div>
@@ -74,6 +73,7 @@ function Profile() {
               })}
             </ul>
           </div>
+          
           <div class="col-sm-6">
             <p>BIO</p>
             <p class="text">{bio}</p>

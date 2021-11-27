@@ -20,7 +20,6 @@ function Login() {
     
     authenticate(loginName.value, loginPassword.value)
       .then((data) => {
-        console.log("Logged in!", data);
 
         // on successful login, send to DB
         const loginCredentials = {
@@ -56,12 +55,12 @@ function Login() {
             }
           })
           .catch(function (error) {
-            console.log(error);
+            console.error(error);
           });
       })
       .catch((err) => {
-        setMessage("Incorrect Email or Password");
         console.error("Failed to login", err);
+        setMessage(err);
         setTimeout(function () {setMessage("");}, 3000);
       });
   };
