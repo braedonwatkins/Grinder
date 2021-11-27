@@ -76,7 +76,9 @@ function Profile() {
           
           <div class="col-sm-6">
             <p>BIO</p>
-            <p class="text">{bio}</p>
+            <div class="text">
+              {bio}
+            </div>
           </div>
         </div>
       </div>

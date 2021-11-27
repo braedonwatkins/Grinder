@@ -344,10 +344,11 @@ input[type="file"] {
   padding-top: 15px;
   padding-left: 15px;
   padding-right: 10px;
-  text-align: left;
+  padding-bottom: 5px;
   font-size: 15px;
-  overflow-x: auto;
+  text-align: left;
 }
+
 
 ::-webkit-scrollbar {
   width: 10px;
