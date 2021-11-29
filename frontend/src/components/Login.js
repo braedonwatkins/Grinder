@@ -59,10 +59,12 @@ function Login() {
           });
       })
       .catch((err) => {
-        console.error("Failed to login", err);
-        setMessage(err);
+        //console.error("Failed to login", err);
+        setMessage(err.message);
         setTimeout(function () {setMessage("");}, 3000);
+        return;
       });
+
   };
 
   return (

@@ -332,6 +332,10 @@ exports.setApp = function (app, client) {
             $push: { Friends: currentUser._id },
             $pull: { Likes: currentUser._id },
           });
+          const newConversation = new Conversation({
+            users: [id, req.body.userId],
+          });
+          const savedConversation = await newConversation.save();
           res.status(200).json("You guys liked each other and are now friends");
         } else {
           res.status(200).json("You liked a user");
